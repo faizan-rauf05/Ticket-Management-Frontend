@@ -14,7 +14,7 @@ import PurchasedTickets from "./pages/User/PurchasedTickets";
 import AddTicket from "./pages/Company/AddTicket";
 import CompanyAllTickets from "./pages/Company/AllTickets";
 import AllCompanies from "./pages/Admin/AllCompanies";
-import CompanyRegisterForm from "./pages/Company/CompanyRegisterForm";
+import CompanyRegisterForm from "./pages/CompanyRegisterForm";
 
 function App() {
   return (

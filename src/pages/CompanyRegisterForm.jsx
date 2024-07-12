@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { post } from "../../services/apiEndpoint";
+import { post } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
-import registerImage from "../../images/register5.jpg";
+import registerImage from "../images/register5.jpg";
 
 const Register = () => {
   const navigate = useNavigate();
