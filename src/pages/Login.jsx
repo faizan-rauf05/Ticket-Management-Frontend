@@ -4,6 +4,7 @@ import { post } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { SetUser } from "../redux/Authslice";
+import Loginimg from "../images/login2.jpg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,40 +13,70 @@ const Login = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
+    loginType: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = data;
+    const { email, password, loginType } = data;
     try {
-      const request = await post("/api/auth/login", { email, password });
+      const request = await post("/api/auth/login", {
+        email,
+        password,
+        loginType,
+      });
       const response = request.data;
+      console.log(response.user.role);
       if (request.status == 200) {
-        if (response.user.role == "admin") {
-          navigate("/admin");
-        } else if (response.user.role == "user") {
-          navigate("/user");
+
+        switch (response.user.role) {
+          case "admin":
+            navigate("/admin");
+            break;
+          case "user":
+            navigate("/user");
+            break;
+          case "company":
+            navigate("/company");
+            break;
+        
+          default:
+            break;
         }
         toast.success(response.message);
         dispatch(SetUser(response.user));
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.message || "An error occurred");
+      } else if (error.request) {
+        toast.error("No response received from server");
+      } else {
+        toast.error("An error occurred while setting up the request");
+      }
+      console.error(error);
     }
   };
 
   return (
     <>
-      <div className="w-full h-[100vh] flex justify-center items-center" >
-        <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div
+        className="w-full h-[100vh] flex justify-center items-center"
+        style={{
+          backgroundImage: `url(${Loginimg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="w-full backdrop-blur-sm bg-opacity-10 bg-inherit max-w-sm p-4 bg-white border border-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form className="space-y-6" action="#" onSubmit={handleSubmit}>
-            <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+            <h5 className="text-xl font-medium text-white dark:text-white">
               Login to our platform
             </h5>
             <div>
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white dark:text-white"
               >
                 Your email
               </label>
@@ -67,7 +98,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white dark:text-white"
               >
                 Your password
               </label>
@@ -86,6 +117,83 @@ const Login = () => {
                 required
               />
             </div>
+            {/* Radio buttons  */}
+
+            <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
+              Login as
+            </h3>
+            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div className="flex items-center ps-3">
+                  <input
+                    id="horizontal-list-radio-license"
+                    type="radio"
+                    value="admin"
+                    name="list-radio"
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        loginType: e.target.value,
+                      });
+                    }}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    htmlFor="horizontal-list-radio-license"
+                    className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Admin{" "}
+                  </label>
+                </div>
+              </li>
+              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div className="flex items-center ps-3">
+                  <input
+                    id="horizontal-list-radio-id"
+                    type="radio"
+                    value="user"
+                    name="list-radio"
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        loginType: e.target.value,
+                      });
+                    }}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    htmlFor="horizontal-list-radio-id"
+                    className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    User
+                  </label>
+                </div>
+              </li>
+              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                <div className="flex items-center ps-3">
+                  <input
+                    id="horizontal-list-radio-military"
+                    type="radio"
+                    value="company"
+                    name="list-radio"
+                    onChange={(e) => {
+                      setData({
+                        ...data,
+                        loginType: e.target.value,
+                      });
+                    }}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    htmlFor="horizontal-list-radio-military"
+                    className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Company
+                  </label>
+                </div>
+              </li>
+            </ul>
+
             <button
               type="submit"
               onClick={handleSubmit}
@@ -93,11 +201,11 @@ const Login = () => {
             >
               Login to your account
             </button>
-            <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <div className="text-md font-medium text-white dark:text-gray-300">
               Not a user{" "}
               <Link
                 to="/"
-                className="text-blue-700 hover:underline dark:text-blue-500"
+                className="text-blue-800 text-md hover:underline dark:text-blue-500"
               >
                 Register here
               </Link>

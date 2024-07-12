@@ -1,32 +1,38 @@
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: "http://localhost:3000",
   headers: {
-    'Content-Type' : 'application/json'
+    "Content-Type": "application/json",
   },
-  withCredentials:true
+  withCredentials: true,
 });
 
-export const get = (url, params)=> instance.get(url, {params});
-export const post = (url, data)=> instance.post(url, data);
-export const put = (url, data)=> instance.put(url, data);
-export const delet = (url)=> instance.delete(url, data);
+export const get = (url, params) => instance.get(url, { params });
+export const post = (url, data) => instance.post(url, data);
+export const put = (url, data) => instance.put(url, data);
+export const delet = (url) => instance.delete(url, data);
 
 // Add a request interceptor
-instance.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
+instance.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 // Add a response interceptor
-instance.interceptors.response.use(function (response) {
-      console.log('intercpert reponse',response)
-  return response;
-}, function (error) {
-  console.log('intercpert error',error)
-  return Promise.reject(error);
-});
+instance.interceptors.response.use(
+  function (response) {
+    console.log("intercpert reponse", response);
+    return response;
+  },
+  function (error) {
+    console.log("intercpert error", error);
+    return Promise.reject(error);
+  }
+);

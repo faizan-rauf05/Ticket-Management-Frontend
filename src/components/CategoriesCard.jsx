@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import AddTicketForm from "./AddTicketForm";
 
 const Categories = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,7 +11,7 @@ const Categories = () => {
 
   return (
     <>
-      <div className="w-[250px] p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-[160px] grow-1 ">
+      <div className="w-[250px] p-6 bg-white cursor-pointer hover:scale-110 transition-transform duration-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-[160px] grow-1" style={{background: 'linear-gradient(90deg, rgba(219,255,195,1) 0%, rgba(94,216,255,1) 100%)'}}>
         <a href="#">
           <h5
             onClick={openModal}
@@ -28,9 +29,7 @@ const Categories = () => {
         </a>
       </div>
 
-    {isModalOpen && <Modal closeModel={setIsModalOpen} />}
-
-
+    {isModalOpen && <Modal closeModel={setIsModalOpen} form={<AddTicketForm/>} />}
     </>
   );
 };
