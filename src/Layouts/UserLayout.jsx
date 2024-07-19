@@ -17,10 +17,7 @@ const UserLayout = () => {
 
   return (
     <>
-      <div className="flex w-[100%]">
         <UserSidebar />
-        <UserDashboard/>
-      </div>
     </>
   )
 }

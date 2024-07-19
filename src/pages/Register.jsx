@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { post } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
+import registerImage from "../images/register9.jpg";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -20,8 +23,9 @@ const Register = () => {
         password,
       });
       const response = request.data;
-      if(request.status == 200){
+      if (request.status == 200) {
         toast.success(response.message);
+        navigate("/login");
       }
       console.log(response);
     } catch (error) {
@@ -31,19 +35,20 @@ const Register = () => {
 
   return (
     <>
-      <div className="w-full h-[100vh] flex justify-center items-center">
-        <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div
+        className="w-full h-[100vh] flex justify-center items-center"
+        style={{
+          backgroundImage: `url(${registerImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="w-full backdrop-blur-md bg-opacity-10 bg-inherit max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form className="space-y-6" action="#" onSubmit={handleSubmit}>
-            <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+            <h5 className="text-xl font-large text-white dark:text-white">
               Register to our platform
             </h5>
             <div>
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Your name
-              </label>
               <input
                 type="text"
                 name="name"
@@ -60,12 +65,6 @@ const Register = () => {
               />
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Your email
-              </label>
               <input
                 type="email"
                 name="email"
@@ -82,12 +81,6 @@ const Register = () => {
               />
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Your password
-              </label>
               <input
                 type="password"
                 name="password"
@@ -110,13 +103,19 @@ const Register = () => {
             >
               Login to your account
             </button>
-            <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <div className="text-sm flex gap-4 font-medium text-white dark:text-gray-300">
               Have an account{" "}
               <Link
                 to={"/login"}
-                className="text-blue-700 hover:underline dark:text-blue-500"
+                className="text-black hover:underline dark:text-blue-500"
               >
                 Sign in
+              </Link>
+              <Link
+                to={"/company-register"}
+                className="text-black hover:underline dark:text-blue-500"
+              >
+                Register as company
               </Link>
             </div>
           </form>
