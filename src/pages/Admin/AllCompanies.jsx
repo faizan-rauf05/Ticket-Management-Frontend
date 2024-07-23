@@ -4,12 +4,10 @@ import CompaniesCard from "./CompaniesCard";
 const AllCompanies = () => {
   return (
     <>
-      <div className="flex gap-[2rem] flex-wrap justify-center mt-[3rem]">
-        <CompaniesCard />
-        <CompaniesCard />
-        <CompaniesCard />
-        <CompaniesCard />
-      </div>
+      <h2 className="font-semiBold text-3xl text-center mb-4 text-white">
+        All Companies
+      </h2>
+      <CompaniesCard />
     </>
   );
 };

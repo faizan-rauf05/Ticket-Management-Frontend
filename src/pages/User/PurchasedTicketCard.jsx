@@ -1,45 +1,40 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import daewoo from "../../images/daewoo.jpg";
 
 const PurchasedTicketCard = () => {
+  const user = useSelector((state) => state.Auth.user);
+
   return (
     <>
-      <div
-        className="max-w-sm p-6 hover:scale-110 transition-transform duration-300 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(255,195,52,1) 0%, rgba(156,255,202,1) 100%)",
-        }}
-      >
+      <div className="md:max-w-[200px] bg-white hover:-translate-y-2 transition-transform transform rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">
-            Noteworthy technology acquisitions 2021
-          </h5>
+          <img className="rounded-t-lg" src={daewoo} alt="daewoo" />
         </a>
-        <p className="mb-3 font-normal text-white dark:text-gray-400">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
-        </p>
-        <a
-          href="#"
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Cancel Ticket
-          <svg
-            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </a>
+        <div className="p-2 bg-[#0e1f33] rounded-b-lg">
+          <a href="#">
+            <h5 className="mb-2 text-1xl font-bold tracking-tight text-white dark:text-white">
+              Lahore-Islamabad
+            </h5>
+          </a>
+          {user.role == "user" ? (
+            <>
+              <a className="inline-flex items-center px-2 py-1 text-[0.8rem] font-medium border text-center text-white rounded-lg hover:bg-[#152831] focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Checkout
+              </a>
+              <a className="inline-flex ml-2 items-center px-2 py-1 text-[0.8rem] font-medium border text-center text-white rounded-lg hover:bg-[#152831] focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Cancel
+              </a>
+            </>
+          ) : (
+            <a
+              href="#"
+              className="inline-flex items-center px-3 py-2 text-[0.8rem] font-medium text-center border text-white rounded-lg hover:bg-[#152831] focus:ring-1 focus:outline-none focus:ring-bg-[#0e1f33] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Delete Ticket
+            </a>
+          )}
+        </div>
       </div>
     </>
   );
