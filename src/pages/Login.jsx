@@ -4,7 +4,7 @@ import { post } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { SetUser } from "../redux/Authslice";
-import Loginimg from "../images/login2.jpg";
+import Loginimg from "../images/login5.jpg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,6 @@ const Login = () => {
         loginType,
       });
       const response = request.data;
-      console.log(response.user.role);
       if (request.status == 200) {
 
         switch (response.user.role) {
@@ -58,6 +57,10 @@ const Login = () => {
     }
   };
 
+  // const handleGoogleSignIn = () => {
+  //   window.location.href = "http://localhost:3000/api/auth/google"; // Redirect to Google OAuth
+  // };
+
   return (
     <>
       <div
@@ -65,7 +68,7 @@ const Login = () => {
         style={{
           backgroundImage: `url(${Loginimg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center"
         }}
       >
         <div className="w-full backdrop-blur-sm bg-opacity-10 bg-inherit max-w-sm p-4 bg-white border border-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -119,11 +122,11 @@ const Login = () => {
             </div>
             {/* Radio buttons  */}
 
-            <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-white font-light text-gray-900 dark:text-white">
               Login as
             </h3>
-            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-transparent rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <li className="w-full">
                 <div className="flex items-center ps-3">
                   <input
                     id="horizontal-list-radio-license"
@@ -136,7 +139,7 @@ const Login = () => {
                         loginType: e.target.value,
                       });
                     }}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-transparent dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />
                   <label
                     htmlFor="horizontal-list-radio-license"
@@ -146,7 +149,7 @@ const Login = () => {
                   </label>
                 </div>
               </li>
-              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <li className="w-full ">
                 <div className="flex items-center ps-3">
                   <input
                     id="horizontal-list-radio-id"
@@ -159,7 +162,7 @@ const Login = () => {
                         loginType: e.target.value,
                       });
                     }}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-transparent dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />
                   <label
                     htmlFor="horizontal-list-radio-id"
@@ -169,7 +172,7 @@ const Login = () => {
                   </label>
                 </div>
               </li>
-              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+              <li className="w-full">
                 <div className="flex items-center ps-3">
                   <input
                     id="horizontal-list-radio-military"
@@ -182,7 +185,7 @@ const Login = () => {
                         loginType: e.target.value,
                       });
                     }}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-transparent dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />
                   <label
                     htmlFor="horizontal-list-radio-military"
@@ -197,15 +200,22 @@ const Login = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="w-full text-white bg-[#13253a] hover:bg-[#09131f] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Login to your account
+              Login
             </button>
+            {/* <button
+              type="submit"
+              onClick={handleGoogleSignIn}
+              className="w-full text-white bg-[#13253a] hover:bg-[#09131f] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Login with google
+            </button> */}
             <div className="text-md font-medium text-white dark:text-gray-300">
               Not a user{" "}
               <Link
                 to="/"
-                className="text-blue-800 text-md hover:underline dark:text-blue-500"
+                className="text-white text-md hover:underline dark:text-blue-500"
               >
                 Register here
               </Link>

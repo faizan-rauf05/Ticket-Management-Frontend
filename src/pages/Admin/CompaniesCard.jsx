@@ -2,34 +2,128 @@ import React from "react";
 
 const CompaniesCard = () => {
   return (
-    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Faisal Movers
-        </h5>
-      </a>
-      <a
-        href="#"
-        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Delete
-        <svg
-          class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-          />
-        </svg>
-      </a>
-    </div>
+    <>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-transparent">
+          <thead class="text-xs text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 bg-transparent">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-white">
+                Company name
+              </th>
+              <th scope="col" class="px-6 py-3 text-white">
+                Email
+              </th>
+              <th scope="col" class="px-6 py-3 text-white">
+                Country
+              </th>
+              <th scope="col" class="px-6 py-3 text-white">
+                Province
+              </th>
+              <th scope="col" class="px-6 py-3 text-white">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+              >
+                Faizan
+              </th>
+              <td class="px-6 py-4 text-white">faizan@gmail.com</td>
+              <td class="px-6 py-4 text-white">Pakistan</td>
+              <td class="px-6 py-4 text-white">Punjab</td>
+              <td class="px-6 py-4 text-white">
+                <a
+                  href="#"
+                  class="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <tr class=" border-b dark:border-gray-700">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+              >
+                Faizan
+              </th>
+              <td class="px-6 py-4 text-white">faizan@gmail.com</td>
+              <td class="px-6 py-4 text-white">Pakistan</td>
+              <td class="px-6 py-4 text-white">Punjab</td>
+              <td class="px-6 py-4 text-white">
+                <a
+                  href="#"
+                  class="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <tr class=" odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+              >
+                Faizan
+              </th>
+              <td class="px-6 py-4 text-white">faizan@gmail.com</td>
+              <td class="px-6 py-4 text-white">Pakistan</td>
+              <td class="px-6 py-4 text-white">Punjab</td>
+              <td class="px-6 py-4 text-white">
+                <a
+                  href="#"
+                  class="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <tr class="border-b dark:border-gray-700">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+              >
+                Faizan
+              </th>
+              <td class="px-6 py-4 text-white">faizan@gmail.com</td>
+              <td class="px-6 py-4 text-white">Pakistan</td>
+              <td class="px-6 py-4 text-white">Punjab</td>
+              <td class="px-6 py-4 text-white">
+                <a
+                  href="#"
+                  class="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+              >
+                Faizan
+              </th>
+              <td class="px-6 py-4 text-white">faizan@gmail.com</td>
+              <td class="px-6 py-4 text-white">Pakistan</td>
+              <td class="px-6 py-4 text-white">Punjab</td>
+              <td class="px-6 py-4 text-white">
+                <a
+                  href="#"
+                  class="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
