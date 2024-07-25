@@ -13,6 +13,7 @@ import { CiUser } from "react-icons/ci";
 import { Outlet } from "react-router-dom";
 import bg3 from "../../images/register2.jpg"
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import Logo from "../../images/logo.png";
 
 
 const Companysidebar = () => {
@@ -69,13 +70,13 @@ const Companysidebar = () => {
         </button>
         <div className="h-full px-3 font-poppins py-4 overflow-y-auto bg-[#09131f]  dark:bg-gray-800">
           <ul className="space-y-2 font-light">
-            <li>
-              <Link
-                to="/company"
-                className="flex items-center mb-10 text-2xl p-2 text-white rounded-lg dark:text-white hover:bg-[#13253a] dark:hover:bg-gray-700 group"
+            <li className="mb-8">
+            <Link
+                to="/user"
+                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
-                <FaRegBuilding />
-                <span className="ms-3">Company</span>
+                <CiUser size={28} />
+                <img src={Logo} alt="logo" />
               </Link>
             </li>
             <li>

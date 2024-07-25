@@ -69,7 +69,7 @@ const AddCategory = () => {
               id="message"
               rows="4"
               name="description"
-              class="block p-2.5 w-full text-sm text-white bg-transparent rounded-lg border border-gray-300 focus:ring-[#0d1f33] focus:outline-none focus:border-[#0d1f33] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block p-2.5 w-full text-sm text-white bg-transparent rounded-lg border border-gray-300 focus:ring-[#0d1f33] focus:outline-none focus:border-[#0d1f33] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Write your thoughts here..."
               onChange={(e) =>
                 setCategoryData({

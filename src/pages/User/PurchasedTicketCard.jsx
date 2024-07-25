@@ -1,43 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { del, get } from "../../services/apiEndpoint";
 import { useSelector } from "react-redux";
-import daewoo from "../../images/daewoo.jpg";
+import toast from "react-hot-toast";
 
-const PurchasedTicketCard = () => {
+const AllUsersCard = () => {
   const user = useSelector((state) => state.Auth.user);
+  const [cartItems, setCartItems] = useState([]);
+  const id = user._id;
+  useEffect(() => {
+    const getAllCartItems = async () => {
+      try {
+        const response = await get(`/api/user/cart/${id}`);
+        if (response.status == 200) {
+          setCartItems(response.data.cartItems);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllCartItems();
+  }, []);
+
+  const deleteItemFromCart = async (ids) => {
+    try {
+      const response = await del(`/api/user/cart/item/${ids}/${id}`);
+      if(response.status ==200 ){
+        setCartItems(response.data.fetchRemainingCartItems);
+        console.log(response)
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
-      <div className="md:max-w-[200px] bg-white hover:-translate-y-2 transition-transform transform rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img className="rounded-t-lg" src={daewoo} alt="daewoo" />
-        </a>
-        <div className="p-2 bg-[#0e1f33] rounded-b-lg">
-          <a href="#">
-            <h5 className="mb-2 text-1xl font-bold tracking-tight text-white dark:text-white">
-              Lahore-Islamabad
-            </h5>
-          </a>
-          {user.role == "user" ? (
-            <>
-              <a className="inline-flex items-center px-2 py-1 text-[0.8rem] font-medium border text-center text-white rounded-lg hover:bg-[#152831] focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Checkout
-              </a>
-              <a className="inline-flex ml-2 items-center px-2 py-1 text-[0.8rem] font-medium border text-center text-white rounded-lg hover:bg-[#152831] focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Cancel
-              </a>
-            </>
-          ) : (
-            <a
-              href="#"
-              className="inline-flex items-center px-3 py-2 text-[0.8rem] font-medium text-center border text-white rounded-lg hover:bg-[#152831] focus:ring-1 focus:outline-none focus:ring-bg-[#0e1f33] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Delete Ticket
-            </a>
-          )}
-        </div>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-transparent">
+          <thead className="text-xs text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 bg-transparent">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-white">
+                Departure Place
+              </th>
+              <th scope="col" className="px-6 py-3 text-white">
+                Arrival place
+              </th>
+              <th scope="col" className="px-6 py-3 text-white">
+                Quantity
+              </th>
+              <th scope="col" className="px-6 py-3 text-white">
+                Total Price
+              </th>
+              <th scope="col" className="px-6 py-3 text-white">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {cartItems.map((currItem) => {
+              return (
+                <tr key={currItem._id}>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.departurePlace}
+                  </td>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.arrivalPlace}
+                  </td>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.quantity}
+                  </td>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.totalPrice}
+                  </td>
+                  <td className="px-6 py-4 text-white">
+                    <a
+                      onClick={()=>deleteItemFromCart(currItem._id)}
+                      className="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                    >
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </>
   );
 };
 
-export default PurchasedTicketCard;
+export default AllUsersCard;

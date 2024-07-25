@@ -45,8 +45,8 @@ function App() {
           <Route path="purchased-tickets" element={<PurchasedTickets />} />
           <Route path="profile" element={<Profile />} />
           <Route path="blog" element={<Blog />} />
-          <Route path="ticket-details" element={<Singleticketpage />} />
-          <Route path="ticket-details/single-blog" element={<Singleblog />} />
+          <Route path="ticket-details/:id" element={<Singleticketpage />} />
+          <Route path="blog-details" element={<Singleblog />} />
           <Route path="parcel" element={<Parcel />} />
         </Route>
 

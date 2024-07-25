@@ -14,6 +14,7 @@ import { Outlet } from "react-router-dom";
 import bg3 from "../../images/register2.jpg"
 import { RiBloggerLine } from "react-icons/ri";
 import { CiShoppingCart } from "react-icons/ci";
+import Logo from "../../images/logo.png";
 
 const UserSidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
@@ -76,7 +77,7 @@ const UserSidebar = () => {
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
                 <CiUser size={28} />
-                <span className="ms-3">User Dashboard</span>
+                <img src={Logo} alt="logo" />
               </Link>
             </li>
             <li>

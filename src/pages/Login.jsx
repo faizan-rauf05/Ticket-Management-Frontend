@@ -1,33 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { post } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { SetUser } from "../redux/Authslice";
 import Loginimg from "../images/login5.jpg";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const siteKey = "6LcqQxgqAAAAAHEkIK2btCFneoJQZMnz3UTC7M5H";
 
   const [data, setData] = useState({
     email: "",
     password: "",
     loginType: "",
   });
+  const [reCaptcha, setReCaptcha] = useState("");
+  const captchaRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    captchaRef.current.reset();
     const { email, password, loginType } = data;
     try {
       const request = await post("/api/auth/login", {
         email,
         password,
         loginType,
+        reCaptcha
       });
       const response = request.data;
       if (request.status == 200) {
-
         switch (response.user.role) {
           case "admin":
             navigate("/admin");
@@ -38,7 +43,7 @@ const Login = () => {
           case "company":
             navigate("/company");
             break;
-        
+
           default:
             break;
         }
@@ -57,6 +62,10 @@ const Login = () => {
     }
   };
 
+const handleRecaptcha = (value)=>{
+  setReCaptcha(value);
+}
+
   // const handleGoogleSignIn = () => {
   //   window.location.href = "http://localhost:3000/api/auth/google"; // Redirect to Google OAuth
   // };
@@ -68,7 +77,7 @@ const Login = () => {
         style={{
           backgroundImage: `url(${Loginimg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center"
+          backgroundPosition: "center",
         }}
       >
         <div className="w-full backdrop-blur-sm bg-opacity-10 bg-inherit max-w-sm p-4 bg-white border border-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -196,6 +205,9 @@ const Login = () => {
                 </div>
               </li>
             </ul>
+            <div>
+              <ReCAPTCHA sitekey={siteKey} onChange={handleRecaptcha} ref={captchaRef} />
+            </div>
 
             <button
               type="submit"

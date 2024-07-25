@@ -49,7 +49,13 @@ const AddTicketForm = ({ ticketType }) => {
         toast.success(response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.message || "An error occurred");
+      } else if (error.request) {
+        toast.error("No response received from server");
+      } else {
+        toast.error("An error occurred while setting up the request");
+      }
     }
   };
 
@@ -67,7 +73,7 @@ const AddTicketForm = ({ ticketType }) => {
             id="departurePlace"
             className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
+            autoComplete="off"
             onChange={(e) =>
               setTicketData({
                 ...ticketData,
@@ -90,7 +96,7 @@ const AddTicketForm = ({ ticketType }) => {
             value={ticketData.arrivalPlace}
             className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
+            autoComplete="off"
             onChange={(e) =>
               setTicketData({
                 ...ticketData,
@@ -113,7 +119,7 @@ const AddTicketForm = ({ ticketType }) => {
             value={ticketData.noOfTickets}
             className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
+            autoComplete="off"
             onChange={(e) =>
               setTicketData({
                 ...ticketData,
@@ -136,7 +142,7 @@ const AddTicketForm = ({ ticketType }) => {
             value={ticketData.description}
             className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
+            autoComplete="off"
             onChange={(e) =>
               setTicketData({
                 ...ticketData,
@@ -190,10 +196,10 @@ const AddTicketForm = ({ ticketType }) => {
             type="number"
             name="price"
             id="price"
+            autoComplete="off"
             value={ticketData.price}
             className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
             onChange={(e) =>
               setTicketData({
                 ...ticketData,

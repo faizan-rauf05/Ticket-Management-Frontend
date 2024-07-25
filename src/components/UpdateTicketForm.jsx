@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { get, put } from "../services/apiEndpoint";
-import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
-const UpdateTicketForm = ({id}) => {
-
+const UpdateTicketForm = ({id, setAllTickets}) => {
+  const user = useSelector((state) => state.Auth.user);
+  const companyId = user._id;
   const [ticket, setTicketData] = useState({
     departurePlace: "",
     arrivalPlace: "",
@@ -44,18 +45,12 @@ const UpdateTicketForm = ({id}) => {
         departureDate,
         arrivalDate,
         price,
-        description
+        description,
+        companyId
       });
       if (response.status == 200) {
-        // setTicketData({
-        //   departurePlace: "",
-        //   arrivalPlace: "",
-        //   noOfTickets: "",
-        //   seatNo: "",
-        //   price: "",
-        //   description : ""
-        // });
         toast.success(response.data.message);
+        setAllTickets(response.data.remainingTickets);
       }
     } catch (error) {
       console.log(error);
