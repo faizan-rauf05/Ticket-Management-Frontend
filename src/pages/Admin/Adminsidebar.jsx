@@ -71,7 +71,7 @@ const Adminsidebar = () => {
           <ul className="space-y-2 font-medium">
             <li className="mb-8">
             <Link
-                to="/user"
+                to="/admin"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
                 <CiUser size={28} />

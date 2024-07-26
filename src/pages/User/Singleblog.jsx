@@ -1,23 +1,33 @@
-import React from "react";
-import faisalMasjid from "../../images/faisal-masjid.jpeg";
+import React, {useEffect} from "react";
+import { get } from "../../services/apiEndpoint";
+import {useState} from "react"
 
 const Singleblog = () => {
+  const [blogDetails, setBlogDetails] = useState({});
+
+  useEffect(()=>{
+    const fetchAllBlogs = async ()=>{
+      const response = await get("/api/user/singleblog");
+      if(response.status ==200 ){
+        setBlogDetails(response.data.singleBlogDetails);
+      }
+    }
+    fetchAllBlogs();
+  },[])
+
   return (
     <>
-      <main class="container mx-auto mt-8">
-        <div class="flex flex-wrap justify-between">
-          <div class="w-full md:w-8/12 px-4 mb-8">
+      <main className="container mx-auto mt-8">
+        <div className="flex flex-wrap justify-between">
+          <div className="w-full md:w-8/12 px-4 mb-8">
             <img
-              src={faisalMasjid}
+              src={`http://localhost:3000/images/${blogDetails.image}`}
               alt="Featured Image"
-              class="w-full h-74 object-cover rounded"
+              className="w-full h-74 object-cover rounded"
             />
-            <h2 class="text-4xl font-bold mt-4 mb-2 text-white ">My First Blog Post</h2>
-            <p class="text-white mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <h2 className="text-4xl font-bold mt-4 mb-2 text-white ">{blogDetails.title}</h2>
+            <p className="text-white mb-4">
+              {blogDetails.blog}
             </p>
           </div>
           

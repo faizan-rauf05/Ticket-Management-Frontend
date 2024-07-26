@@ -46,7 +46,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="blog" element={<Blog />} />
           <Route path="ticket-details/:id" element={<Singleticketpage />} />
-          <Route path="blog-details" element={<Singleblog />} />
+          <Route path="ticket-details/:id/blog-details/:id" element={<Singleblog />} />
           <Route path="parcel" element={<Parcel />} />
         </Route>
 

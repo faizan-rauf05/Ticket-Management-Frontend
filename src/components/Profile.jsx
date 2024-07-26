@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { put } from "../services/apiEndpoint";
+import { post, put } from "../services/apiEndpoint";
 import { SetUser } from "../redux/Authslice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -14,12 +14,15 @@ const Profile = () => {
     country: "",
     province: "",
     email: "",
+    id : "",
     oldPassword: "",
     newPassword: "",
   });
   const [userProfileData, setUserProfileData] = useState({
-    name:"",
-    email:""
+    name: "",
+    email: "",
+    oldPassword: "",
+    newPassword: "",
   });
   const user = useSelector((state) => state.Auth.user);
 
@@ -31,6 +34,7 @@ const Profile = () => {
           country: user.country || "",
           province: user.province || "",
           email: user.email || "",
+          id : user._id || "",
           oldPassword: "",
           newPassword: "",
         });
@@ -42,7 +46,7 @@ const Profile = () => {
     e.preventDefault();
     const { companyName, country, province, email } = profileData;
     try {
-      const response = await put(`/api/company/profile/${profileData._id}`, {
+      const response = await put(`/api/company/profile/${profileData.id}`, {
         companyName,
         country,
         province,
@@ -62,7 +66,7 @@ const Profile = () => {
     const { oldPassword, newPassword } = profileData;
     try {
       const response = await put(
-        `/api/company/profile/password/${profileData._id}`,
+        `/api/company/profile/password/${profileData.id}`,
         {
           oldPassword,
           newPassword,
@@ -82,20 +86,20 @@ const Profile = () => {
   if (user.role == "user" || user.role == "admin") {
     useEffect(() => {
       setUserProfileData({
-        name : user.name || "",
-        email : user.email || "",
-        id : user._id || ""
+        name: user.name || "",
+        email: user.email || "",
+        id: user._id || "",
       });
     }, []);
   }
 
-  const handleUpdateUserProfile = async (e)=>{
+  const handleUpdateUserProfile = async (e) => {
     e.preventDefault();
-    const {name, email, id} = userProfileData;
+    const { name, email, id } = userProfileData;
     try {
       const response = await put(`/api/user/profile/${id}`, {
         name,
-        email
+        email,
       });
       if (response.status == 200) {
         dispatch(SetUser(response.data.updatedProfile));
@@ -104,7 +108,33 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  // Handle update user password
+
+  const handleUserPassowrdUpdate = async (e) => {
+    e.preventDefault();
+    const { oldPassword, newPassword, id } = userProfileData;
+    try {
+      const response = await post(`/api/user/profile/password/${id}`, {
+        oldPassword,
+        newPassword,
+      });
+     if(response.status == 200){
+      toast.success(response.data.message);
+      userProfileData.oldPassword="";
+      userProfileData.newPassword="";
+     }else{
+      toast.error(response.data.message)
+     }
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "An error occurred");
+      } else {
+        toast.error("An error occurred while setting up the request");
+      }
+    }
+  };
 
   //User Profile end
 
@@ -114,7 +144,10 @@ const Profile = () => {
         <div className="flex justify-center ">
           <div className="w-full bg-transparent p-4 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <h2 className="text-3xl text-white text-center mb-8">Profile</h2>
-            <form className="max-w-3xl mx-auto" onSubmit={handleUpdateUserProfile} >
+            <form
+              className="max-w-3xl mx-auto"
+              onSubmit={handleUpdateUserProfile}
+            >
               <div className="relative z-0 w-full mb-5 group">
                 <input
                   type="text"
@@ -161,36 +194,56 @@ const Profile = () => {
                   Email
                 </label>
               </div>
-              {/* <div className="relative z-0 w-full mb-5 group">
+              <div className="relative z-0 w-full mb-5 group">
                 <input
-                  type="text"
-                  name="text"
-                  id="floating_repeat_password"
+                  type="password"
+                  name="oldPassword"
+                  id="oldPassword"
+                  value={userProfileData.oldPassword}
+                  onChange={(e) => {
+                    setUserProfileData({
+                      ...userProfileData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
                   className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
                 <label
-                  htmlFor="floating_repeat_password"
+                  htmlFor="oldPassword"
                   className="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-white peer-focus:dark:bg-[#0d1f33] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Password
+                  Old Password
                 </label>
               </div>
               <div className="relative z-0 w-full mb-5 group">
                 <input
                   type="password"
-                  name="repeat_password"
-                  id="floating_repeat_password"
+                  name="newPassword"
+                  id="newPassword"
+                  value={userProfileData.newPassword}
+                  onChange={(e) => {
+                    setUserProfileData({
+                      ...userProfileData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
                   className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
                 <label
-                  htmlFor="floating_repeat_password"
+                  htmlFor="newPassword"
                   className="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-white peer-focus:dark:bg-[#0d1f33] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Change your password
+                  New Password
                 </label>
-              </div> */}
+              </div>
+              <button
+                onClick={handleUserPassowrdUpdate}
+                className="text-white mr-4 bg-[#0d1f33] hover:bg-[#09131f] focus:ring-4 focus:outline-none focus:ring-[#0d1f33] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Change Password
+              </button>
               <button
                 type="submit"
                 className="text-white bg-[#0d1f33] hover:bg-[#09131f] focus:ring-4 focus:outline-none focus:ring-[#0d1f33] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

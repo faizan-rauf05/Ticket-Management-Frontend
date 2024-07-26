@@ -31,8 +31,8 @@ const AddCategory = () => {
 
   return (
     <div className="max-w-full min-h-[90vh] flex justify-center items-center">
-      <div className="w-full max-w-sm p-4 bg-transparent border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-6" action="#" onSubmit={handleCreateCategory}>
+      <div className="w-full backdrop-blur-sm bg-opacity-10 max-w-sm p-4 bg-transparent border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form className="space-y-6 " action="#" onSubmit={handleCreateCategory}>
           <h5 className="text-lg text-center font-medium text-white dark:text-white">
             Fill this form to add new category
           </h5>
