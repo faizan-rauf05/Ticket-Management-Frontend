@@ -20,6 +20,7 @@ const TicketCard = ({
   _id,
 }) => {
   const user = useSelector((state) => state.Auth.user);
+  const companyId = user._id;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -28,7 +29,7 @@ const TicketCard = ({
 
   const handleTicketDelete = async () => {
     try {
-      const response = await del(`/api/company/ticket/${_id}`);
+      const response = await del(`/api/company/ticket/${_id}/${companyId}`);
       if (response.status === 200) {
         console.log(response.data)
         setAllTickets(response.data.remainingTickets);
@@ -66,22 +67,12 @@ const TicketCard = ({
           </p>
           <div className="w-full flex justify-between">
             <p className="mb-[4px] text-[.85rem] font-normal text-white dark:text-gray-400">
-              {noOfTickets} tickets left
+              {noOfTickets} seats left
             </p>
             <p className="mb-[4px] text-[.85rem] font-normal text-white dark:text-gray-400">
               Price : {price}
             </p>
           </div>
-          {/* <div className="w-full flex justify-between">
-            <p className="flex gap-[2px] items-center mb-[6px] text-white">
-              <CiCloudDrizzle size={"1.4rem"} />
-              14
-              <TbTemperatureCelsius />{" "}
-            </p>
-            <p className="mb-[4px] text-[.85rem] font-normal text-white dark:text-gray-400">
-              Faisal Movers
-            </p>
-          </div> */}
           {user.role === "company" ? (
             <div className="flex justify-end absolute bottom-2 right-2 ">
               <a
@@ -107,7 +98,7 @@ const TicketCard = ({
             </a>
           ) : user.role === "user" ? (
             <Link
-              to="ticket-details"
+              to={`ticket-details/${_id}`}
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center border text-white rounded-lg hover:bg-[#152831] focus:ring-2 focus:outline-none focus:ring-white dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
               Book me
@@ -119,7 +110,7 @@ const TicketCard = ({
       {isModalOpen && (
         <Modal
           closeModel={setIsModalOpen}
-          form={<UpdateTicketForm id={_id} />}
+          form={<UpdateTicketForm id={_id} setAllTickets={setAllTickets} />}
           text="Add ticket from here"
         />
       )}

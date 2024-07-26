@@ -11,7 +11,8 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { RiProfileLine } from "react-icons/ri";
 import { BsBuilding } from "react-icons/bs";
-import bg3 from "../../images/register2.jpg"
+import bg3 from "../../images/register2.jpg";
+import Logo from "../../images/logo.png";
 
 const Adminsidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
@@ -69,21 +70,12 @@ const Adminsidebar = () => {
         <div className="h-full px-3 py-4 bg-[#09131f] overflow-y-auto dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
             <li className="mb-8">
-              <Link
-                to="/admin"
+            <Link
+                to="/user"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
-                <CiUser />
-                <span className="ms-3">Admin Dashboard</span>
-              </Link>
-            </li>
-            <li className="mb-8">
-              <Link
-                to="/admin"
-                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
-              >
-                <CiUser />
-                <span className="ms-3">Dashboard</span>
+                <CiUser size={28} />
+                <img src={Logo} alt="logo" />
               </Link>
             </li>
             <li>

@@ -9,7 +9,6 @@ const Modal = ({ closeModel, form, text }) => {
   return (
     <>
       {/* Main modal */}
-
       <div
         id="default-modal"
         tabIndex="-1"
@@ -18,7 +17,7 @@ const Modal = ({ closeModel, form, text }) => {
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full">
           {/* Modal content */}
-          <div className="relative bg-[#09131f] rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-[#09131f] rounded-lg shadow dark:bg-gray-700 h-full flex flex-col overflow-hidden">
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-medium text-white dark:text-white">
@@ -48,6 +47,7 @@ const Modal = ({ closeModel, form, text }) => {
               </button>
             </div>
             <div
+              className="flex-1 overflow-y-auto"
               style={{
                 backgroundImage: `url(${formBack})`,
                 backgroundSize: "cover",
