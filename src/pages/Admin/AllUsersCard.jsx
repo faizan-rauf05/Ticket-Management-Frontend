@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { get, del } from "../../services/apiEndpoint";
+import toast from "react-hot-toast";
 
 const AllUsersCard = () => {
+  const [users, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const response = await get("/api/admin/users");
+      setAllUsers(response.data.filteredUsers);
+    };
+    fetchAllUsers();
+  }, []);
+
+  // Delete Company
+  const deleteUser = async (id) => {
+    try {
+      const response = await del(`/api/admin/user/${id}`);
+      if (response.status == 200) {
+        setAllUsers(response.data.remainingUsers);
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
@@ -8,7 +33,7 @@ const AllUsersCard = () => {
           <thead className="text-xs text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 bg-transparent">
             <tr>
               <th scope="col" className="px-6 py-3 text-white">
-                User name
+                Name
               </th>
               <th scope="col" className="px-6 py-3 text-white">
                 Email
@@ -18,92 +43,27 @@ const AllUsersCard = () => {
               </th>
             </tr>
           </thead>
-          <tbody  >
-            <tr className="odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
-              >
-                Faizan
-              </th>
-              <td className="px-6 py-4 text-white">faizan@gmail.com</td>
-              <td className="px-6 py-4 text-white">
-                <a
-                  href="#"
-                  className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                >
-                  Delete
-                </a>
-              </td>
-            </tr>
-            <tr className=" border-b dark:border-gray-700">
-            <th
-                scope="row"
-                className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
-              >
-                Faizan
-              </th>
-              <td className="px-6 py-4 text-white">rehan@gmail.com</td>
-              <td className="px-6 py-4 text-white">
-                <a
-                  href="#"
-                  className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                >
-                  Delete
-                </a>
-              </td>
-            </tr>
-            <tr className=" odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th
-                scope="row"
-                className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
-              >
-                Faizan
-              </th>
-              <td className="px-6 py-4 text-white">abdul@gmail.com</td>
-              <td className="px-6 py-4 text-white">
-                <a
-                  href="#"
-                  className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                >
-                  Delete
-                </a>
-              </td>
-            </tr>
-            <tr className="border-b dark:border-gray-700">
-            <th
-                scope="row"
-                className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
-              >
-                Faizan
-              </th>
-              <td className="px-6 py-4 text-white">faizan@gmail.com</td>
-              <td className="px-6 py-4 text-white">
-                <a
-                  href="#"
-                  className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                >
-                  Delete
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
-              >
-                Faizan
-              </th>
-              <td className="px-6 py-4 text-white">ali@gmail.com</td>
-              <td className="px-6 py-4 text-white">
-                <a
-                  href="#"
-                  className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                >
-                  Delete
-                </a>
-              </td>
-            </tr>
+          <tbody>
+            {users?.map((currItem) => {
+              return (
+                <tr key={currItem._id}>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.name}
+                  </td>
+                  <td scope="col" className="px-6 py-3 text-white">
+                    {currItem.email}
+                  </td>
+                  <td className="px-6 py-4 text-white">
+                    <a
+                      onClick={() => deleteUser(currItem._id)}
+                      className="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                    >
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

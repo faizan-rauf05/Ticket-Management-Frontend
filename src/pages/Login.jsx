@@ -88,7 +88,7 @@ const handleRecaptcha = (value)=>{
             <div>
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-white dark:text-white"
+                className="block mb-1 text-sm font-medium text-white dark:text-white"
               >
                 Your email
               </label>
@@ -110,7 +110,7 @@ const handleRecaptcha = (value)=>{
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-white dark:text-white"
+                className="block mb-1 text-sm font-medium text-white dark:text-white"
               >
                 Your password
               </label>
