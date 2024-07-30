@@ -39,7 +39,7 @@ const AdminTicketCard = ({
         </a>
         <div
           className={
-            "p-2 bg-[#03305b]  bg-[#0e1f33] rounded-b-lg min-h-[110px]"
+            "p-2 bg-[#03305b]  bg-[#0e1f33] rounded-b-lg min-h-[143px]"
           }
         >
           <a href="#">
