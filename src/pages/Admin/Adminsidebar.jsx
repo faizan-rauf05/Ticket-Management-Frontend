@@ -80,6 +80,15 @@ const Adminsidebar = () => {
             </li>
             <li>
               <Link
+                to="/admin"
+                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
+              >
+                <IoTicketOutline />
+                <span className="ms-3">Dashboard</span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="all-tickets"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
@@ -105,6 +114,15 @@ const Adminsidebar = () => {
               >
                 <HiOutlineUsers />
                 <span className="flex-1 ms-3 whitespace-nowrap">All Users</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="all-orders"
+                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
+              >
+                <HiOutlineUsers />
+                <span className="flex-1 ms-3 whitespace-nowrap">All Orders</span>
               </Link>
             </li>
             <li>

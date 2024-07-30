@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PiBusThin } from "react-icons/pi";
 import { IoTrainOutline } from "react-icons/io5";
 import { GiAirplaneDeparture } from "react-icons/gi";
 import { PiGift } from "react-icons/pi";
 import { PiTicketLight } from "react-icons/pi";
 import { MdOutlineShowChart } from "react-icons/md";
+import {get} from "../../services/apiEndpoint";
 
 
 const Dashboard = () => {
+
+  const [allData, setAllData] = useState([]);
+  const [busData, setbusData] = useState([]);
+  const [trainData, settrainData] = useState([]);
+  const [airplaneData, setairplaneData] = useState([]);
+
+  useEffect(()=>{
+    const fetchAnalytics = async ()=>{
+      try {
+        const response = await get("api/admin/analytics");
+        if(response.status == 200){
+          setAllData(response.data.fetchSalesData);
+          setbusData(response.data.busData);
+          settrainData(response.data.trainData);
+          setairplaneData(response.data.airplaneData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAnalytics();
+  },[])
+
+
   return (
     <section className="text-gray-600 body-font">
       <h2 className="text-3xl text-white text-center" >Dashboard</h2>
@@ -19,7 +44,7 @@ const Dashboard = () => {
               Total Revenue
             </h5>
             <p className="mb-3 font-normal group-hover:text-white transition duration-300 text-white dark:text-gray-400">
-              5000$
+              450$
             </p>
           </div>
 
@@ -29,7 +54,7 @@ const Dashboard = () => {
               Tickets Sold
             </h5>
             <p className="mb-3 font-normal group-hover:text-white transition duration-300 text-white dark:text-gray-400">
-              300
+              {allData.length}
             </p>
           </div>
 
@@ -39,7 +64,7 @@ const Dashboard = () => {
               Bus
             </h5>
             <p className="mb-3 font-normal text-white transition duration-300 dark:text-gray-400 group-hover:text-white">
-              100
+              {busData.length}
             </p>
           </div>
 
@@ -49,7 +74,7 @@ const Dashboard = () => {
               Train
             </h5>
             <p className="mb-3 font-normal text-white transition duration-300 group-hover:text-white dark:text-gray-400">
-              70
+              {trainData.length}
             </p>
           </div>
 
@@ -59,7 +84,7 @@ const Dashboard = () => {
               Airplane
             </h5>
             <p className="mb-3 font-normal text-white transition duration-300 group-hover:text-white dark:text-gray-400">
-              90
+              {airplaneData.length}
             </p>
           </div>
 

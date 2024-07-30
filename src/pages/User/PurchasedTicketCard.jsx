@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { del, get } from "../../services/apiEndpoint";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import {loadStripe} from '@stripe/stripe-js';
 
 const AllUsersCard = () => {
   const user = useSelector((state) => state.Auth.user);
   const [cartItems, setCartItems] = useState([]);
   const id = user._id;
+
+  // Get cart items
   useEffect(() => {
     const getAllCartItems = async () => {
       try {
@@ -21,6 +24,8 @@ const AllUsersCard = () => {
     getAllCartItems();
   }, []);
 
+  //Delete cart items
+
   const deleteItemFromCart = async (ids) => {
     try {
       const response = await del(`/api/user/cart/item/${ids}/${id}`);
@@ -33,6 +38,32 @@ const AllUsersCard = () => {
       console.log(error);
     }
   };
+
+  // Make stripe Payments 
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51PhnyARr4CnxscyiC7mxEeahErBl7sW2Gr82URoynJXCD2u1wOXy45xR66lGDZWvAdtvGAC5dlarfGeZxYtf1C3Z00DEhGJrgL");
+
+    const body = {
+      products : cartItems,
+      userId : user._id
+    }
+    const headers = {
+    "Content-Type": "application/json",
+    }
+    const response = await fetch("http://localhost:3000/api/create-checkout-session",{
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+    if(result.error){
+      console.log(result.error);
+    }
+  }
+
 
   return (
     <>
@@ -73,7 +104,13 @@ const AllUsersCard = () => {
                   <td scope="col" className="px-6 py-3 text-white">
                     {currItem.totalPrice}
                   </td>
-                  <td className="px-6 py-4 text-white">
+                  <td className="px-6 py-4 text-white flex gap-4">
+                    <a
+                    onClick={makePayment}
+                      className="font-medium text-red-700 dark:text-blue-500 hover:underline"
+                    >
+                      Checkout
+                    </a>
                     <a
                       onClick={()=>deleteItemFromCart(currItem._id)}
                       className="font-medium text-red-700 dark:text-blue-500 hover:underline"

@@ -23,6 +23,9 @@ import Singleticketpage from "./components/Singleticketpage";
 import Singleblog from "./pages/User/Singleblog";
 import Parcel from "./pages/User/Parcel";
 import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
+import PaymentSuccess from "./components/PaymentSuccess"
+import PaymentFail from "./components/PaymentFail"
+import AllOrders from "./pages/Admin/AllOrders";
 
 function App() {
   return (
@@ -37,6 +40,7 @@ function App() {
           <Route path="add-category" element={<AddCategory />} />
           <Route path="profile" element={<Profile />} />
           <Route path="all-users" element={<AllUsers />} />
+          <Route path="all-orders" element={<AllOrders />} />
         </Route>
 
         {/* User Routes  */}
@@ -62,9 +66,11 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<Register />} />
           <Route path="/company-register" element={<CompanyRegister />} />
-        </Route>
           <Route path="/login" element={<Login />} />
-        <Route path="/api/auth/google" component={<GoogleRedirectHandler/>} />
+        </Route>
+        <Route path="/api/auth/google" element={<GoogleRedirectHandler/>} />
+        <Route path="/success" element={<PaymentSuccess/>} />
+        <Route path="/fail" element={<PaymentFail/>} />
       </Routes>
     </>
   );

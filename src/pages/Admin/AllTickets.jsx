@@ -35,8 +35,11 @@ const AllTickets = () => {
 
   return (
     <>
+      <h2 className="text-center font-semiBold text-3xl text-white">
+        All Tickets
+      </h2>
       <div className="max-w-[100%] flex gap-8 flex-wrap">
-        {ticketsData?.data?.map((currData) => {
+        {ticketsData?.map((currData) => {
           return (
             <AdminTicketCard setAllTickets={setAllTickets} {...currData} />
           );

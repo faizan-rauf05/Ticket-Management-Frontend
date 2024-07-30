@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import TicketCard from "../Company/TicketCard";
 import { get } from "../../services/apiEndpoint";
+import toast from "react-hot-toast";
 
 const AvailableTickets = () => {
   const [allTickets, setAllTickets] = useState([]);
@@ -38,10 +39,12 @@ const AvailableTickets = () => {
     }
   };
 
+  
+
 return (
   <>
     <section className="text-gray-600 body-font">
-      <SearchBar />
+      <SearchBar setAllTickets={setAllTickets} />
       <h2 className="text-center text-3xl text-white font-semiBold ">
         All Tickets
       </h2>

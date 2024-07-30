@@ -31,7 +31,6 @@ const Singleticketpage = () => {
     try {
       const response = await get(`/api/user/ticket-details/${id}`);
       setTicketDetails(response.data.ticketDetails);
-
       const city = response.data.ticketDetails.arrivalPlace;
       if (city) {
         getAllBlogs(city);
@@ -57,7 +56,9 @@ const Singleticketpage = () => {
     ticketType,
     description,
     _id,
+    type
   } = ticketDetails;
+  console.log(ticketDetails)
   const ticketOptions = Array.from({ length: noOfTickets }, (_, i) => i + 1);
 
   const handleCart = async () => {
@@ -70,6 +71,7 @@ const Singleticketpage = () => {
         totalPrice,
         id: user._id,
         ticketId: _id,
+        ticketType
       });
       if (response.status == 200) {
         toast.success(response.data.message);
