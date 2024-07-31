@@ -27,6 +27,7 @@ import PaymentSuccess from "./components/PaymentSuccess"
 import PaymentFail from "./components/PaymentFail"
 import AllOrders from "./pages/Admin/AllOrders";
 import Error from "./components/Error";
+import Flights from "./pages/User/Flights";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="ticket-details/:id" element={<Singleticketpage />} />
           <Route path="ticket-details/:id/blog-details/:id" element={<Singleblog />} />
           <Route path="parcel" element={<Parcel />} />
+          <Route path="flights" element={<Flights />} />
         </Route>
 
         {/* Company Routes */}

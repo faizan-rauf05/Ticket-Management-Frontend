@@ -14,7 +14,7 @@ const Profile = () => {
     country: "",
     province: "",
     email: "",
-    id : "",
+    id: "",
     oldPassword: "",
     newPassword: "",
   });
@@ -34,7 +34,7 @@ const Profile = () => {
           country: user.country || "",
           province: user.province || "",
           email: user.email || "",
-          id : user._id || "",
+          id: user._id || "",
           oldPassword: "",
           newPassword: "",
         });
@@ -120,13 +120,13 @@ const Profile = () => {
         oldPassword,
         newPassword,
       });
-     if(response.status == 200){
-      toast.success(response.data.message);
-      userProfileData.oldPassword="";
-      userProfileData.newPassword="";
-     }else{
-      toast.error(response.data.message)
-     }
+      if (response.status == 200) {
+        toast.success(response.data.message);
+        userProfileData.oldPassword = "";
+        userProfileData.newPassword = "";
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message || "An error occurred");
