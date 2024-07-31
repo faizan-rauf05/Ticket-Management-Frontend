@@ -26,6 +26,7 @@ import GoogleRedirectHandler from "./components/GoogleRedirectHandler";
 import PaymentSuccess from "./components/PaymentSuccess"
 import PaymentFail from "./components/PaymentFail"
 import AllOrders from "./pages/Admin/AllOrders";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -71,6 +72,8 @@ function App() {
         <Route path="/api/auth/google" element={<GoogleRedirectHandler/>} />
         <Route path="/success" element={<PaymentSuccess/>} />
         <Route path="/fail" element={<PaymentFail/>} />
+        <Route path="*" element={<Error/>} />
+
       </Routes>
     </>
   );

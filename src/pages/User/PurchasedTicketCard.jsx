@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { del, get } from "../../services/apiEndpoint";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
+import MoonLoader from "react-spinners/ClipLoader";
 
 const AllUsersCard = () => {
   const user = useSelector((state) => state.Auth.user);
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const id = user._id;
 
   // Get cart items
@@ -29,9 +31,9 @@ const AllUsersCard = () => {
   const deleteItemFromCart = async (ids) => {
     try {
       const response = await del(`/api/user/cart/item/${ids}/${id}`);
-      if(response.status ==200 ){
+      if (response.status == 200) {
         setCartItems(response.data.fetchRemainingCartItems);
-        console.log(response)
+        console.log(response);
         toast.success(response.data.message);
       }
     } catch (error) {
@@ -39,35 +41,43 @@ const AllUsersCard = () => {
     }
   };
 
-  // Make stripe Payments 
+  // Make stripe Payments
   const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51PhnyARr4CnxscyiC7mxEeahErBl7sW2Gr82URoynJXCD2u1wOXy45xR66lGDZWvAdtvGAC5dlarfGeZxYtf1C3Z00DEhGJrgL");
+    setLoading(true);
+    const stripe = await loadStripe(
+      "pk_test_51PhnyARr4CnxscyiC7mxEeahErBl7sW2Gr82URoynJXCD2u1wOXy45xR66lGDZWvAdtvGAC5dlarfGeZxYtf1C3Z00DEhGJrgL"
+    );
 
     const body = {
-      products : cartItems,
-      userId : user._id
-    }
+      products: cartItems,
+      userId: user._id,
+    };
     const headers = {
-    "Content-Type": "application/json",
-    }
-    const response = await fetch("http://localhost:3000/api/create-checkout-session",{
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body)
-    });
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(
+      "http://localhost:3000/api/create-checkout-session",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
     const session = await response.json();
+    if (session.id) {
+      setLoading(false);
+    }
     const result = stripe.redirectToCheckout({
-      sessionId: session.id
-    })
-    if(result.error){
+      sessionId: session.id,
+    });
+    if (result.error) {
       console.log(result.error);
     }
-  }
-
+  };
 
   return (
     <>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
+      <div className="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-transparent">
           <thead className="text-xs text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 bg-transparent">
             <tr>
@@ -106,13 +116,7 @@ const AllUsersCard = () => {
                   </td>
                   <td className="px-6 py-4 text-white flex gap-4">
                     <a
-                    onClick={makePayment}
-                      className="font-medium text-red-700 dark:text-blue-500 hover:underline"
-                    >
-                      Checkout
-                    </a>
-                    <a
-                      onClick={()=>deleteItemFromCart(currItem._id)}
+                      onClick={() => deleteItemFromCart(currItem._id)}
                       className="font-medium text-red-700 dark:text-blue-500 hover:underline"
                     >
                       Delete
@@ -124,6 +128,24 @@ const AllUsersCard = () => {
           </tbody>
         </table>
       </div>
+      {loading ? (
+        <MoonLoader
+          color={"#fff"}
+          // loading={loading}
+          // cssOverride={override}
+          size={30}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          className="ml-4"
+        />
+      ) : (
+        <a
+          onClick={makePayment}
+          className=" font-medium p-2 bg-[#09131f] rounded-md text-white dark:text-blue-500 hover:underline"
+        >
+          Checkout
+        </a>
+      )}
     </>
   );
 };

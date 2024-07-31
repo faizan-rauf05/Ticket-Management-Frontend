@@ -58,17 +58,15 @@ const Singleticketpage = () => {
     _id,
     type
   } = ticketDetails;
-  console.log(ticketDetails)
   const ticketOptions = Array.from({ length: noOfTickets }, (_, i) => i + 1);
 
   const handleCart = async () => {
-    const totalPrice = quantity * price;
     try {
       const response = await post("/api/user/cart", {
         departurePlace,
         arrivalPlace,
         quantity,
-        totalPrice,
+        totalPrice : price,
         id: user._id,
         ticketId: _id,
         ticketType
