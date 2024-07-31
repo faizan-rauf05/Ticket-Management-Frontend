@@ -131,8 +131,6 @@ const AllUsersCard = () => {
       {loading ? (
         <MoonLoader
           color={"#fff"}
-          // loading={loading}
-          // cssOverride={override}
           size={30}
           aria-label="Loading Spinner"
           data-testid="loader"

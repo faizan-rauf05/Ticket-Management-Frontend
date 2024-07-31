@@ -19,9 +19,6 @@ const AddTicket = () => {
 
   return (
     <>
-      {/* <h2 className="text-center text-3xl text-white font-semiBold ">
-        Add Tickets
-      </h2> */}
       <h2 className="text-center mt-2 text-3xl text-white font-semiBold ">
         Select Category
       </h2>

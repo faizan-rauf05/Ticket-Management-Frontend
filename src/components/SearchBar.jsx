@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { get } from "../services/apiEndpoint";
 
-const SearchBar = ({ setFilteredTickets, allTickets}) => {
+const SearchBar = ({ setFilteredTickets, allTickets }) => {
   const [searchData, setSearchData] = useState({
     departurePlace: "",
     arrivalPlace: "",
@@ -15,6 +15,7 @@ const SearchBar = ({ setFilteredTickets, allTickets}) => {
     if (resposne.status == 200) {
       setFilteredTickets(resposne.data.searchTickets);
       setSearchData({
+        
         departurePlace: "",
         arrivalPlace: "",
       });
@@ -23,15 +24,14 @@ const SearchBar = ({ setFilteredTickets, allTickets}) => {
 
   const handleCategorySearch = (type) => {
     if (!type) return;
-  
+
     const ticketsData = allTickets;
     const res = ticketsData.filter((currTicket) => {
-      return currTicket.ticketType=== type;
+      return currTicket.ticketType === type;
     });
-  
+
     setFilteredTickets(res);
   };
-  
 
   return (
     <>

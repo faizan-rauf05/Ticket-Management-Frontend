@@ -103,17 +103,17 @@ const Register = () => {
             >
               Register
             </button>
-            <div className="w-full text-[14px] font-light text-white dark:text-gray-300">
-              Have an account{" "}
+            <div className="w-full flex gap-[5px] text-[14px] font-light text-white dark:text-gray-300">
+              <p>Have an account</p>
               <Link
                 to={"/login"}
-                className="text-white hover:underline dark:text-blue-500"
+                className="text-white underline dark:text-blue-500"
               >
                 Login
               </Link>
               <Link
                 to={"/company-register"}
-                className="text-white ml-2 hover:underline dark:text-blue-500"
+                className="text-white ml-2 underline dark:text-blue-500"
               >
                 Register as company
               </Link>

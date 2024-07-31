@@ -14,6 +14,7 @@ import { Outlet } from "react-router-dom";
 import bg3 from "../../images/register2.jpg"
 import { RiBloggerLine } from "react-icons/ri";
 import { CiShoppingCart } from "react-icons/ci";
+import { IoAirplaneOutline } from "react-icons/io5";
 import Logo from "../../images/logo.png";
 
 const UserSidebar = () => {
@@ -109,13 +110,22 @@ const UserSidebar = () => {
             </li>
             <li>
               <Link
+                to="flights"
+                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
+              >
+                <IoAirplaneOutline size={20} />
+                <span className="flex-1 ms-3 whitespace-nowrap">Flights</span>
+              </Link>
+            </li>
+            {/* <li>
+              <Link
                 to="parcel"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
                 <TfiEnvelope size={20} />
                 <span className="flex-1 ms-3 whitespace-nowrap">Parcel</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="profile"

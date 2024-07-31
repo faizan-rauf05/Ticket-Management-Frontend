@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { SetUser } from "../redux/Authslice";
 import Loginimg from "../images/login5.jpg";
 import ReCAPTCHA from "react-google-recaptcha";
+import MoonLoader from "react-spinners/ClipLoader";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,21 +19,24 @@ const Login = () => {
     loginType: "",
   });
   const [reCaptcha, setReCaptcha] = useState("");
+  const [loading, setLoading] = useState(false);
   const captchaRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     captchaRef.current.reset();
     const { email, password, loginType } = data;
+    setLoading(true);
     try {
       const request = await post("/api/auth/login", {
         email,
         password,
         loginType,
-        reCaptcha
+        reCaptcha,
       });
       const response = request.data;
       if (request.status == 200) {
+        setLoading(false);
         switch (response.user.role) {
           case "admin":
             navigate("/admin");
@@ -62,13 +66,9 @@ const Login = () => {
     }
   };
 
-const handleRecaptcha = (value)=>{
-  setReCaptcha(value);
-}
-
-  // const handleGoogleSignIn = () => {
-  //   window.location.href = "http://localhost:3000/api/auth/google"; // Redirect to Google OAuth
-  // };
+  const handleRecaptcha = (value) => {
+    setReCaptcha(value);
+  };
 
   return (
     <>
@@ -206,28 +206,35 @@ const handleRecaptcha = (value)=>{
               </li>
             </ul>
             <div>
-              <ReCAPTCHA sitekey={siteKey} onChange={handleRecaptcha} ref={captchaRef} />
+              <ReCAPTCHA
+                sitekey={siteKey}
+                onChange={handleRecaptcha}
+                ref={captchaRef}
+              />
             </div>
 
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="w-full text-white bg-[#13253a] hover:bg-[#09131f] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Login
-            </button>
-            {/* <button
-              type="submit"
-              onClick={handleGoogleSignIn}
-              className="w-full text-white bg-[#13253a] hover:bg-[#09131f] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Login with google
-            </button> */}
-            <div className="text-md font-medium text-white dark:text-gray-300">
-              Not a user{" "}
+            {loading ? (
+              <MoonLoader
+                color={"#fff"}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                className="ml-4"
+              />
+            ) : (
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className="w-full text-white bg-[#13253a] hover:bg-[#09131f] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Login
+              </button>
+            )}
+            <div className="flex gap-2 text-md font-medium text-white dark:text-gray-300">
+              <p className="text-[0.9rem]" >Not a user</p>
               <Link
                 to="/"
-                className="text-white text-md hover:underline dark:text-blue-500"
+                className="text-white text-[0.9rem] underline text-md hover:underline dark:text-blue-500"
               >
                 Register here
               </Link>

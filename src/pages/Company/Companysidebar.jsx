@@ -11,10 +11,9 @@ import { Logout } from "../../redux/Authslice";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { Outlet } from "react-router-dom";
-import bg3 from "../../images/register2.jpg"
+import bg3 from "../../images/register2.jpg";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import Logo from "../../images/logo.png";
-
 
 const Companysidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
@@ -71,7 +70,7 @@ const Companysidebar = () => {
         <div className="h-full px-3 font-poppins py-4 overflow-y-auto bg-[#09131f]  dark:bg-gray-800">
           <ul className="space-y-2 font-light">
             <li className="mb-8">
-            <Link
+              <Link
                 to="/user"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
@@ -107,16 +106,7 @@ const Companysidebar = () => {
                 <CiUser />
                 <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
               </Link>
-            </li>
-            <li>
-              <Link
-                to={"analytics"}
-                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#13253a] dark:hover:bg-gray-700 group"
-              >
-                <TbBrandGoogleAnalytics />
-                <span className="flex-1 ms-3 whitespace-nowrap">Analytics</span>
-              </Link>
-            </li>
+            </li>{" "}
             <li onClick={handleLogout}>
               <a
                 href="#"

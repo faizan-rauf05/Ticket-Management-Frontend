@@ -43,7 +43,7 @@ const Categories = ({data}) => {
       </div>
 
       {isModalOpen && (
-        <Modal closeModel={setIsModalOpen} form={<AddTicketForm ticketType={currentCategory}  />} text="Add ticket from here" />
+        <Modal closeModel={setIsModalOpen} form={<AddTicketForm closeModel={setIsModalOpen} ticketType={currentCategory}  />} text="Add ticket from here" />
       )}
     </>
   );

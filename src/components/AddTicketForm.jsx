@@ -5,7 +5,7 @@ import { post } from "../services/apiEndpoint";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
-const AddTicketForm = ({ ticketType }) => {
+const AddTicketForm = ({ ticketType, closeModel }) => {
   const user = useSelector((state) => state.Auth.user);
   const companyId = user._id;
   const [departureDate, setDepartureDate] = useState(null);
@@ -14,26 +14,27 @@ const AddTicketForm = ({ ticketType }) => {
     departurePlace: "",
     arrivalPlace: "",
     noOfTickets: "",
-    price : "" ,
-    description : ""
+    price: "",
+    description: "",
   });
 
   const handleAddTicket = async (e) => {
     e.preventDefault();
-    const { departurePlace, arrivalPlace, noOfTickets, price,description } = ticketData;
+    const { departurePlace, arrivalPlace, noOfTickets, price, description } =
+      ticketData;
     const isoDepartureDate = departureDate ? departureDate.toISOString() : null;
-  const isoArrivalDate = arrivalDate ? arrivalDate.toISOString() : null;
+    const isoArrivalDate = arrivalDate ? arrivalDate.toISOString() : null;
     try {
       let response = await post("/api/company/ticket", {
         departurePlace,
         arrivalPlace,
         noOfTickets,
-        departureDate:isoDepartureDate,
-        arrivalDate:isoArrivalDate,
+        departureDate: isoDepartureDate,
+        arrivalDate: isoArrivalDate,
         ticketType,
         companyId,
         price,
-        description
+        description,
       });
       if (response.status == 200) {
         setTicketData({
@@ -42,7 +43,7 @@ const AddTicketForm = ({ ticketType }) => {
           noOfTickets: "",
           seatNo: "",
           price: "",
-          description : ""
+          description: "",
         });
         setDepartureDate(null);
         setArrivalDate(null);
@@ -57,6 +58,10 @@ const AddTicketForm = ({ ticketType }) => {
         toast.error("An error occurred while setting up the request");
       }
     }
+  };
+
+  const closeModal = () => {
+    closeModel(false);
   };
 
   return (
@@ -154,7 +159,7 @@ const AddTicketForm = ({ ticketType }) => {
             htmlFor="noOfTickets"
             className="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-           Description
+            Description
           </label>
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -217,6 +222,7 @@ const AddTicketForm = ({ ticketType }) => {
 
         <button
           type="submit"
+          onClick={closeModal}
           className="text-white bg-[#182a3f] focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Submit
