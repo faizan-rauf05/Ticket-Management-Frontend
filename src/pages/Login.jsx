@@ -57,6 +57,7 @@ const Login = () => {
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message || "An error occurred");
+        setLoading(false);
       } else if (error.request) {
         toast.error("No response received from server");
       } else {
