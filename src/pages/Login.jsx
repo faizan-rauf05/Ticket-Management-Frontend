@@ -66,6 +66,7 @@ const Login = () => {
     }
   };
 
+  // Recpatcha
   const handleRecaptcha = (value) => {
     setReCaptcha(value);
   };
@@ -73,14 +74,14 @@ const Login = () => {
   return (
     <>
       <div
-        className="w-full h-[100vh] flex justify-center items-center"
+        className="w-full h-[110vh] flex justify-center items-center"
         style={{
           backgroundImage: `url(${Loginimg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="w-full backdrop-blur-sm bg-opacity-10 bg-inherit max-w-sm p-4 bg-white border border-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full backdrop-blur-sm bg-opacity-10 bg-inherit max-w-sm bg-white border border-white rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form className="space-y-6" action="#" onSubmit={handleSubmit}>
             <h5 className="text-xl font-medium text-white dark:text-white">
               Login to our platform
@@ -231,7 +232,7 @@ const Login = () => {
               </button>
             )}
             <div className="flex gap-2 text-md font-medium text-white dark:text-gray-300">
-              <p className="text-[0.9rem]" >Not a user</p>
+              <p className="text-[0.9rem]">Not a user</p>
               <Link
                 to="/"
                 className="text-white text-[0.9rem] underline text-md hover:underline dark:text-blue-500"
