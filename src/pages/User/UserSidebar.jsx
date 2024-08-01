@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,17 +11,35 @@ import { CiUser } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { TfiEnvelope } from "react-icons/tfi";
 import { Outlet } from "react-router-dom";
-import bg3 from "../../images/register2.jpg"
+import bg3 from "../../images/register2.jpg";
 import { RiBloggerLine } from "react-icons/ri";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoAirplaneOutline } from "react-icons/io5";
 import Logo from "../../images/logo.png";
+import { loadSlim } from "@tsparticles/slim";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 
 const UserSidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // stars
+  const [init, setInit] = useState(false);
+
+  // this should be run only once per application lifetime
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
+
+  const particlesLoaded = (container) => {
+    console.log(container);
+  };
+  // stars
   const handleLogout = async () => {
     const request = await post("/api/auth/logout");
     if (request.status == 200) {
@@ -117,15 +135,7 @@ const UserSidebar = () => {
                 <span className="flex-1 ms-3 whitespace-nowrap">Flights</span>
               </Link>
             </li>
-            {/* <li>
-              <Link
-                to="parcel"
-                className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
-              >
-                <TfiEnvelope size={20} />
-                <span className="flex-1 ms-3 whitespace-nowrap">Parcel</span>
-              </Link>
-            </li> */}
+
             <li>
               <Link
                 to="profile"
@@ -149,20 +159,107 @@ const UserSidebar = () => {
         </div>
       </aside>
 
-      <div className=" sm:ml-64">
-        <div
+      <div className=" sm:ml-64 relative">
+        {/* <div
           className="p-4 min-h-[100vh] dark:border-gray-700"
           style={{
             backgroundImage: `url(${bg3})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-        >
-          <div className="grid grid-cols-1 gap-4 mb-4">
-            <Outlet />
-          </div>
+        > */}
+
+        <div className="z-[-1]">
+          {init && (
+            <Particles
+              id="tsparticles"
+              particlesLoaded={particlesLoaded}
+              options={{
+                background: {
+                  color: {
+                    value: "#09131f",
+                  },
+                },
+                fpsLimit: 120,
+                interactivity: {
+                  events: {
+                    onClick: {
+                      enable: true,
+                      mode: "push",
+                    },
+                    onHover: {
+                      enable: true,
+                      mode: "repulse",
+                    },
+                    resize: true,
+                  },
+                  modes: {
+                    push: {
+                      quantity: 4,
+                    },
+                    repulse: {
+                      distance: 200,
+                      duration: 0.4,
+                    },
+                  },
+                },
+                particles: {
+                  color: {
+                    value: "#ffffff",
+                  },
+                  links: {
+                    color: "#ffffff",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.5,
+                    width: 1,
+                  },
+                  move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                      default: "bounce",
+                    },
+                    random: false,
+                    speed: 6,
+                    straight: false,
+                  },
+                  number: {
+                    density: {
+                      enable: true,
+                      area: 800,
+                    },
+                    value: 80,
+                  },
+                  opacity: {
+                    value: 1,
+                  },
+                  shape: {
+                    type: "circle",
+                  },
+                  size: {
+                    value: { min: 1, max: 5 },
+                  },
+                },
+                detectRetina: true,
+              }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1, // Lower z-index
+              }}
+            />
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 mb-4" style={{ position: 'relative', zIndex: 10 }}>
+          <Outlet />
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 };

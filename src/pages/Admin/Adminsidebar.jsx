@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { post } from "../../services/apiEndpoint";
 import { useDispatch } from "react-redux";
@@ -13,12 +13,37 @@ import { RiProfileLine } from "react-icons/ri";
 import { BsBuilding } from "react-icons/bs";
 import bg3 from "../../images/register2.jpg";
 import Logo from "../../images/logo.png";
+import { loadFireworksPreset } from "@tsparticles/preset-fireworks";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 
 const Adminsidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [init, setInit] = useState(false);
+
+  // this should be run only once per application lifetime
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      //await loadAll(engine);
+      //await loadFull(engine);
+      // await loadSlim(engine);
+      await loadFireworksPreset(engine);
+      //await loadBasic(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
+
+  const particlesLoaded = (container) => {
+    console.log(container);
+  };
+  // stars
 
   const handleLogout = async () => {
     const request = await post("/api/auth/logout");
@@ -70,7 +95,7 @@ const Adminsidebar = () => {
         <div className="h-full px-3 py-4 bg-[#09131f] overflow-y-auto dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
             <li className="mb-8">
-            <Link
+              <Link
                 to="/admin"
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
@@ -122,7 +147,9 @@ const Adminsidebar = () => {
                 className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0e1f33] dark:hover:bg-gray-700 group"
               >
                 <HiOutlineUsers />
-                <span className="flex-1 ms-3 whitespace-nowrap">All Orders</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  All Orders
+                </span>
               </Link>
             </li>
             <li>
@@ -160,18 +187,108 @@ const Adminsidebar = () => {
       </aside>
 
       <div className="sm:ml-64">
-        <div
+        {/* <div
           className="p-4 min-h-[100vh] dark:border-gray-700"
           style={{
             backgroundImage: `url(${bg3})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-        >
-          <div className="grid grid-cols-1 gap-4 mb-4">
-            <AdminDashboard />
-          </div>
+        > */}
+
+        <div className="z-[-1]">
+          {init && (
+            <Particles
+              id="tsparticles"
+              particlesLoaded={particlesLoaded}
+              options={{
+                background: {
+                  color: {
+                    value: "#09131f",
+                  },
+                },
+                fpsLimit: 120,
+                interactivity: {
+                  events: {
+                    onClick: {
+                      enable: true,
+                      mode: "push",
+                    },
+                    onHover: {
+                      enable: true,
+                      mode: "repulse",
+                    },
+                    resize: true,
+                  },
+                  modes: {
+                    push: {
+                      quantity: 4,
+                    },
+                    repulse: {
+                      distance: 200,
+                      duration: 0.4,
+                    },
+                  },
+                },
+                particles: {
+                  color: {
+                    value: "#ffffff",
+                  },
+                  links: {
+                    color: "#ffffff",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.5,
+                    width: 1,
+                  },
+                  move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                      default: "bounce",
+                    },
+                    random: false,
+                    speed: 6,
+                    straight: false,
+                  },
+                  number: {
+                    density: {
+                      enable: true,
+                      area: 800,
+                    },
+                    value: 80,
+                  },
+                  opacity: {
+                    value: 1,
+                  },
+                  shape: {
+                    type: "circle",
+                  },
+                  size: {
+                    value: { min: 1, max: 5 },
+                  },
+                },
+                detectRetina: true,
+              }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: -1, // Lower z-index
+              }}
+            />
+          )}
         </div>
+
+        <div
+          className="mt-8 grid grid-cols-1 gap-4 mb-4"
+          style={{ position: "relative", zIndex: 10 }}
+        >
+          <AdminDashboard />
+        </div>
+        {/* </div> */}
       </div>
     </>
   );

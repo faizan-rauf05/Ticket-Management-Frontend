@@ -14,6 +14,7 @@ import { Outlet } from "react-router-dom";
 import bg3 from "../../images/register2.jpg";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import Logo from "../../images/logo.png";
+import Particles from '@tsparticles/react';
 
 const Companysidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
@@ -26,6 +27,14 @@ const Companysidebar = () => {
       dispatch(Logout());
       navigate("/login");
     }
+  };
+
+  const particlesInit = (main) => {
+    // You can customize the tsParticles instance (main) here
+  };
+
+  const particlesLoaded = (container) => {
+    // You can access the particles container (container) here
   };
 
   return (
@@ -123,13 +132,72 @@ const Companysidebar = () => {
       <div className="sm:ml-64 bg-[#0c101b]">
         <div
           className="p-4 min-h-[100vh] bg-[#09131f] bg-white rounded-lg dark:border-gray-700"
-          style={{
-            backgroundImage: `url(${bg3})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          // style={{
+          //   backgroundImage: `url(${bg3})`,
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "center",
+          // }}
         >
-          <div className="grid grid-cols-1 gap-4 mb-4">
+           <Particles
+      id="tsparticles"
+      init={particlesInit}
+      loaded={particlesLoaded}
+      options={{
+        background: {
+          color: {
+            value: "#09131f",
+          },
+        },
+        fpsLimit: 60,
+        interactivity: {
+          detectsOn: "canvas",
+          events: {
+            onHover: {
+              enable: true,
+              mode: "repulse",
+            },
+          },
+        },
+        particles: {
+          number: {
+            value: 100,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: "#ffffff",
+          },
+          shape: {
+            type: "circle",
+          },
+          opacity: {
+            value: 0.5,
+            random: true,
+          },
+          size: {
+            value: 10,
+            random: true,
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            outMode: "bounce",
+            random: true,
+            straight: false,
+          },
+          parallax: {
+            enable: true,
+            force: 60,
+            smooth: 10,
+          },
+        },
+        detectRetina: true,
+      }}
+    />
+          <div className="grid grid-cols-1 gap-4 mb-4" style={{ position: 'relative', zIndex: 10 }}>
             <Outlet />
           </div>
         </div>

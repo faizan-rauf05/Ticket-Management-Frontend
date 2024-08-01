@@ -35,7 +35,7 @@ const SearchBar = ({ setFilteredTickets, allTickets }) => {
 
   return (
     <>
-      <div className="bg-transparent p-6 rounded-lg w-full max-w-2xl mx-auto mt-2">
+      <div className="bg-transparent z-50 p-6 rounded-lg w-full max-w-2xl mx-auto mt-2">
         <form className="flex items-center justify-center flex-wrap -mx-2">
           <div className="w-full md:w-1/3 px-2 mb-4 md:mb-0">
             <input
