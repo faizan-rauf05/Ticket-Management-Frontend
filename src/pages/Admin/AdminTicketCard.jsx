@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import daewoo from "../../images/daewoo.jpg";
 import { del } from "../../services/apiEndpoint";
 import toast from "react-hot-toast";
@@ -10,9 +10,8 @@ const AdminTicketCard = ({
   price,
   description,
   setAllTickets,
-  _id
+  _id,
 }) => {
-
   const handleTicketDelete = async () => {
     try {
       const response = await del(`/api/admin/ticket/${_id}`);

@@ -15,7 +15,6 @@ const SearchBar = ({ setFilteredTickets, allTickets }) => {
     if (resposne.status == 200) {
       setFilteredTickets(resposne.data.searchTickets);
       setSearchData({
-        
         departurePlace: "",
         arrivalPlace: "",
       });

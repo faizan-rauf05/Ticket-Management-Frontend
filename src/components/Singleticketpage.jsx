@@ -56,7 +56,7 @@ const Singleticketpage = () => {
     ticketType,
     description,
     _id,
-    type
+    type,
   } = ticketDetails;
   const ticketOptions = Array.from({ length: noOfTickets }, (_, i) => i + 1);
 
@@ -66,10 +66,10 @@ const Singleticketpage = () => {
         departurePlace,
         arrivalPlace,
         quantity,
-        totalPrice : price,
+        totalPrice: price,
         id: user._id,
         ticketId: _id,
-        ticketType
+        ticketType,
       });
       if (response.status == 200) {
         toast.success(response.data.message);
@@ -167,11 +167,13 @@ const Singleticketpage = () => {
       {/* Related Blogs  */}
       <h2 className="mt-4 text-white text-3xl text-center">Related Blogs</h2>
       <div className="flex flex-wrap gap-8 justify-center mt-4">
-        {blogs
-          ? blogs?.map((currBlog) => {
-              return <BlogCard key={currBlog._id} {...currBlog} />;
-            })
-          : <p className="text-white" >No any blog available</p>}
+        {blogs ? (
+          blogs?.map((currBlog) => {
+            return <BlogCard key={currBlog._id} {...currBlog} />;
+          })
+        ) : (
+          <p className="text-white">No any blog available</p>
+        )}
       </div>
     </>
   );

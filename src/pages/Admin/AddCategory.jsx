@@ -11,7 +11,7 @@ const AddCategory = () => {
   const handleCreateCategory = async (e) => {
     e.preventDefault();
     const { categoryName, description } = categoryData;
-    console.log(description)
+    console.log(description);
     try {
       const request = await post("/api/admin/category", {
         categoryName,

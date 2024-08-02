@@ -9,9 +9,7 @@ import { Logout } from "../../redux/Authslice";
 import toast from "react-hot-toast";
 import { CiUser } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
-import { TfiEnvelope } from "react-icons/tfi";
 import { Outlet } from "react-router-dom";
-import bg3 from "../../images/register2.jpg";
 import { RiBloggerLine } from "react-icons/ri";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoAirplaneOutline } from "react-icons/io5";
@@ -57,6 +55,7 @@ const UserSidebar = () => {
         aria-controls="default-sidebar"
         type="button"
         onClick={() => setOpenSidebar(!sidebar)}
+        style={{ position: "relative", zIndex: 10 }}
         className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
@@ -160,15 +159,6 @@ const UserSidebar = () => {
       </aside>
 
       <div className=" sm:ml-64 relative">
-        {/* <div
-          className="p-4 min-h-[100vh] dark:border-gray-700"
-          style={{
-            backgroundImage: `url(${bg3})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        > */}
-
         <div className="z-[-1]">
           {init && (
             <Particles
@@ -254,12 +244,13 @@ const UserSidebar = () => {
             />
           )}
         </div>
-
-        <div className="grid grid-cols-1 gap-4 mb-4" style={{ position: 'relative', zIndex: 10 }}>
+        <div
+          className="grid grid-cols-1 gap-4 mb-4"
+          style={{ position: "relative", zIndex: 10 }}
+        >
           <Outlet />
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 };

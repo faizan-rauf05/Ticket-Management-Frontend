@@ -31,7 +31,7 @@ const TicketCard = ({
     try {
       const response = await del(`/api/company/ticket/${_id}/${companyId}`);
       if (response.status === 200) {
-        console.log(response.data)
+        console.log(response.data);
         setAllTickets(response.data.remainingTickets);
         toast.success(response.data.message);
       } else {

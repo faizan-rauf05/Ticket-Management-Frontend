@@ -11,10 +11,8 @@ import { Logout } from "../../redux/Authslice";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { Outlet } from "react-router-dom";
-import bg3 from "../../images/register2.jpg";
-import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import Logo from "../../images/logo.png";
-import Particles from '@tsparticles/react';
+import Particles from "@tsparticles/react";
 
 const Companysidebar = () => {
   const [sidebar, setOpenSidebar] = useState(false);
@@ -33,9 +31,7 @@ const Companysidebar = () => {
     // You can customize the tsParticles instance (main) here
   };
 
-  const particlesLoaded = (container) => {
-    // You can access the particles container (container) here
-  };
+  const particlesLoaded = (container) => {};
 
   return (
     <>
@@ -45,6 +41,7 @@ const Companysidebar = () => {
         aria-controls="default-sidebar"
         type="button"
         onClick={() => setOpenSidebar(!sidebar)}
+        style={{ position: "relative", zIndex: 10 }}
         className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
@@ -130,74 +127,70 @@ const Companysidebar = () => {
       </aside>
 
       <div className="sm:ml-64 bg-[#0c101b]">
-        <div
-          className="p-4 min-h-[100vh] bg-[#09131f] bg-white rounded-lg dark:border-gray-700"
-          // style={{
-          //   backgroundImage: `url(${bg3})`,
-          //   backgroundSize: "cover",
-          //   backgroundPosition: "center",
-          // }}
-        >
-           <Particles
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      options={{
-        background: {
-          color: {
-            value: "#0a192b",
-          },
-        },
-        fpsLimit: 60,
-        interactivity: {
-          detectsOn: "canvas",
-          events: {
-            onHover: {
-              enable: true,
-              mode: "repulse",
-            },
-          },
-        },
-        particles: {
-          number: {
-            value: 100,
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-          },
-          color: {
-            value: "#ffffff",
-          },
-          shape: {
-            type: "circle",
-          },
-          opacity: {
-            value: 0.5,
-            random: true,
-          },
-          size: {
-            value: 10,
-            random: true,
-          },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            outMode: "bounce",
-            random: true,
-            straight: false,
-          },
-          parallax: {
-            enable: true,
-            force: 60,
-            smooth: 10,
-          },
-        },
-        detectRetina: true,
-      }}
-    />
-          <div className="grid grid-cols-1 gap-4 mb-4" style={{ position: 'relative', zIndex: 10 }}>
+        <div className="p-4 min-h-[100vh] bg-[#09131f] bg-white rounded-lg dark:border-gray-700">
+          <Particles
+            id="tsparticles"
+            init={particlesInit}
+            loaded={particlesLoaded}
+            options={{
+              background: {
+                color: {
+                  value: "#0a192b",
+                },
+              },
+              fpsLimit: 60,
+              interactivity: {
+                detectsOn: "canvas",
+                events: {
+                  onHover: {
+                    enable: true,
+                    mode: "repulse",
+                  },
+                },
+              },
+              particles: {
+                number: {
+                  value: 100,
+                  density: {
+                    enable: true,
+                    value_area: 800,
+                  },
+                },
+                color: {
+                  value: "#ffffff",
+                },
+                shape: {
+                  type: "circle",
+                },
+                opacity: {
+                  value: 0.5,
+                  random: true,
+                },
+                size: {
+                  value: 10,
+                  random: true,
+                },
+                move: {
+                  enable: true,
+                  speed: 2,
+                  direction: "none",
+                  outMode: "bounce",
+                  random: true,
+                  straight: false,
+                },
+                parallax: {
+                  enable: true,
+                  force: 60,
+                  smooth: 10,
+                },
+              },
+              detectRetina: true,
+            }}
+          />
+          <div
+            className="grid grid-cols-1 gap-4 mb-4"
+            style={{ position: "relative", zIndex: 10 }}
+          >
             <Outlet />
           </div>
         </div>

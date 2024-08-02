@@ -34,12 +34,18 @@ const DestinationWeather = ({ location }) => {
   return (
     <>
       {/* <div className=""> */}
-        {iconUrl && <img  className="text-white w-[50px]  " src={iconUrl} alt="Weather icon" />}
-        {cityWeather && (
-          <div>
-            <p>{cityWeather.main.temp} °C</p>
-          </div>
-        )}
+      {iconUrl && (
+        <img
+          className="text-white w-[50px]  "
+          src={iconUrl}
+          alt="Weather icon"
+        />
+      )}
+      {cityWeather && (
+        <div>
+          <p>{cityWeather.main.temp} °C</p>
+        </div>
+      )}
       {/* </div> */}
     </>
   );

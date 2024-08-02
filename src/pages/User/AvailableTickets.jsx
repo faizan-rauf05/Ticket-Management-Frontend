@@ -54,7 +54,7 @@ const AvailableTickets = () => {
           All Tickets
         </h2>
         {filteredTickets.length == 0 ? (
-          <div className="text-white" >No any ticket found</div>
+          <div className="text-white">No any ticket found</div>
         ) : (
           <div className="container px-5 py-8 mx-auto">
             {loading ? (

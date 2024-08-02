@@ -19,7 +19,7 @@ const BlogCard = ({ title, city, image, blog, _id }) => {
             </h5>
           </Link>
           <p className="mb-[4px] text-[.85rem] font-normal text-white dark:text-gray-400">
-          {blog.slice(0,40)}
+            {blog.slice(0, 40)}
           </p>
         </div>
       </div>

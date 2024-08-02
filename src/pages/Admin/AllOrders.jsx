@@ -13,7 +13,6 @@ const AllOrders = () => {
         setPendingOrders(response.data.pendingOrders);
         setPaidOrders(response.data.paidOrders);
       }
-      // setAllUsers(response.data.filteredUsers);
     };
     fetchAllOrders();
   }, []);

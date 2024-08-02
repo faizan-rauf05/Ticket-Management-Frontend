@@ -1,22 +1,22 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { get, del } from "../../services/apiEndpoint";
 import toast from "react-hot-toast";
 
 const CompaniesCard = () => {
   const [allCompanies, setAllCompanies] = useState([]);
 
-  useEffect(()=>{
-    const fetchAllCompanies = async ()=>{
+  useEffect(() => {
+    const fetchAllCompanies = async () => {
       const response = await get("/api/admin/companies");
       setAllCompanies(response.data.allCompanies);
-    }
+    };
     fetchAllCompanies();
-  },[])
+  }, []);
 
   const deleteComapany = async (id) => {
     try {
       const response = await del(`/api/admin/company/${id}`);
-      if(response.status ==200 ){
+      if (response.status == 200) {
         setAllCompanies(response.data.remainingCompanies);
         toast.success(response.data.message);
       }
@@ -25,13 +25,12 @@ const CompaniesCard = () => {
     }
   };
 
-
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-transparent">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-transparent">
           <thead className="text-xs text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 bg-transparent">
-          <tr>
+            <tr>
               <th scope="col" className="px-6 py-3 text-white">
                 Company Name
               </th>
@@ -50,7 +49,7 @@ const CompaniesCard = () => {
             </tr>
           </thead>
           <tbody>
-          {allCompanies?.map((currItem) => {
+            {allCompanies?.map((currItem) => {
               return (
                 <tr key={currItem._id}>
                   <td scope="col" className="px-6 py-3 text-white">
@@ -67,7 +66,7 @@ const CompaniesCard = () => {
                   </td>
                   <td className="px-6 py-4 text-white">
                     <a
-                      onClick={()=>deleteComapany(currItem._id)}
+                      onClick={() => deleteComapany(currItem._id)}
                       className="font-medium text-red-700 dark:text-blue-500 hover:underline"
                     >
                       Delete
@@ -76,7 +75,6 @@ const CompaniesCard = () => {
                 </tr>
               );
             })}
-            
           </tbody>
         </table>
       </div>

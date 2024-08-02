@@ -5,7 +5,7 @@ import { get, put } from "../services/apiEndpoint";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
-const UpdateTicketForm = ({id, setAllTickets}) => {
+const UpdateTicketForm = ({ id, setAllTickets }) => {
   const user = useSelector((state) => state.Auth.user);
   const companyId = user._id;
   const [ticket, setTicketData] = useState({
@@ -36,7 +36,15 @@ const UpdateTicketForm = ({id, setAllTickets}) => {
 
   const handleUpdateTicket = async (e) => {
     e.preventDefault();
-    const { departurePlace, arrivalPlace, noOfTickets, price,description, departureDate,arrivalDate } = ticket;
+    const {
+      departurePlace,
+      arrivalPlace,
+      noOfTickets,
+      price,
+      description,
+      departureDate,
+      arrivalDate,
+    } = ticket;
     try {
       let response = await put(`/api/company/ticket/${id}`, {
         departurePlace,
@@ -46,7 +54,7 @@ const UpdateTicketForm = ({id, setAllTickets}) => {
         arrivalDate,
         price,
         description,
-        companyId
+        companyId,
       });
       if (response.status == 200) {
         toast.success(response.data.message);
@@ -152,7 +160,7 @@ const UpdateTicketForm = ({id, setAllTickets}) => {
             htmlFor="noOfTickets"
             className="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-           Description
+            Description
           </label>
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -166,7 +174,9 @@ const UpdateTicketForm = ({id, setAllTickets}) => {
             className="mt-4 bg-transparent border rounded-md p-[4px] text-white"
             value={ticket?.departureDate}
             selected={ticket?.departureDate}
-            onChange={(date) => setTicketData({ ...ticket, departureDate: date })}
+            onChange={(date) =>
+              setTicketData({ ...ticket, departureDate: date })
+            }
             minDate={new Date()}
             dateFormat={"dd/MM/yyyy"}
             isClearable

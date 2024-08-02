@@ -1,19 +1,19 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { get } from "../../services/apiEndpoint";
-import {useState} from "react"
+import { useState } from "react";
 
 const Singleblog = () => {
   const [blogDetails, setBlogDetails] = useState({});
 
-  useEffect(()=>{
-    const fetchAllBlogs = async ()=>{
+  useEffect(() => {
+    const fetchAllBlogs = async () => {
       const response = await get("/api/user/singleblog");
-      if(response.status ==200 ){
+      if (response.status == 200) {
         setBlogDetails(response.data.singleBlogDetails);
       }
-    }
+    };
     fetchAllBlogs();
-  },[])
+  }, []);
 
   return (
     <>
@@ -25,12 +25,11 @@ const Singleblog = () => {
               alt="Featured Image"
               className="w-full h-74 object-cover rounded"
             />
-            <h2 className="text-4xl font-bold mt-4 mb-2 text-white ">{blogDetails.title}</h2>
-            <p className="text-white mb-4">
-              {blogDetails.blog}
-            </p>
+            <h2 className="text-4xl font-bold mt-4 mb-2 text-white ">
+              {blogDetails.title}
+            </h2>
+            <p className="text-white mb-4">{blogDetails.blog}</p>
           </div>
-          
         </div>
       </main>
     </>

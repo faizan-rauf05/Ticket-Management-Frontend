@@ -28,12 +28,12 @@ const Blog = () => {
         },
       }
     );
-    if(response.status == 200){
+    if (response.status == 200) {
       toast.success(response.data.message);
       setBlogData({
-        title:"",
-        city:"",
-        blog:"",
+        title: "",
+        city: "",
+        blog: "",
       });
       setFile("");
     }

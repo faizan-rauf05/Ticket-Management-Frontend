@@ -6,7 +6,7 @@ const Flights = () => {
   const [flightsData, setFlightsData] = useState([]);
   const [flightsMeta, setFlightsMeta] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16
+  const itemsPerPage = 16;
 
   // Calculate the current items to display based on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -15,7 +15,9 @@ const Flights = () => {
 
   // Handle page change
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(flightsData.length / itemsPerPage)));
+    setCurrentPage((prevPage) =>
+      Math.min(prevPage + 1, Math.ceil(flightsData.length / itemsPerPage))
+    );
   };
 
   const handlePreviousPage = () => {
@@ -28,24 +30,34 @@ const Flights = () => {
         setFlightsData={setFlightsData}
         setFlightsMeta={setFlightsMeta}
       />
-      <h2 className="text-white text-center text-3xl my-4" >Real-Time Flights Data {flightsData.length}</h2>
+      <h2 className="text-white text-center text-3xl my-4">
+        Real-Time Flights Data {flightsData.length}
+      </h2>
       <div className="w-full flex gap-4 flex-wrap">
-        {currentFlights.map((currFlight,index) => {
+        {currentFlights.map((currFlight, index) => {
           return (
-            <FlightCard
-              key={index}
-              {...currFlight}
-              flightsMeta={flightsMeta}
-            />
+            <FlightCard key={index} {...currFlight} flightsMeta={flightsMeta} />
           );
         })}
       </div>
       <div className="pagination-controls mx-auto my-4">
-        <button onClick={handlePreviousPage} className="bg-[#09131f] rounded p-2 text-white mr-2" disabled={currentPage === 1}>
+        <button
+          onClick={handlePreviousPage}
+          className="bg-[#09131f] rounded p-2 text-white mr-2"
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
-        <span className="text-white" >Page {currentPage} of {Math.ceil(flightsData.length / itemsPerPage)}</span>
-        <button onClick={handleNextPage} className="bg-[#09131f] rounded p-2 text-white ml-2" disabled={currentPage === Math.ceil(flightsData.length / itemsPerPage)}>
+        <span className="text-white">
+          Page {currentPage} of {Math.ceil(flightsData.length / itemsPerPage)}
+        </span>
+        <button
+          onClick={handleNextPage}
+          className="bg-[#09131f] rounded p-2 text-white ml-2"
+          disabled={
+            currentPage === Math.ceil(flightsData.length / itemsPerPage)
+          }
+        >
           Next
         </button>
       </div>

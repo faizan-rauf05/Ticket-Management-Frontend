@@ -7,7 +7,7 @@ const FlightCard = ({
   origin,
   destination,
   price,
-  flightsMeta
+  flightsMeta,
 }) => {
   return (
     <>
@@ -40,7 +40,6 @@ const FlightCard = ({
           <p className="mb-[4px] text-[.85rem] font-normal text-white dark:text-gray-400">
             <strong>Price :</strong> {`${price.total} ${flightsMeta.currency}`}
           </p>
-
         </div>
       </div>
     </>

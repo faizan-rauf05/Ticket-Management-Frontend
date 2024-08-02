@@ -27,14 +27,7 @@ const Adminsidebar = () => {
   // this should be run only once per application lifetime
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-      // starting from v2 you can add only the features you need reducing the bundle size
-      //await loadAll(engine);
-      //await loadFull(engine);
-      // await loadSlim(engine);
       await loadFireworksPreset(engine);
-      //await loadBasic(engine);
     }).then(() => {
       setInit(true);
     });
@@ -61,6 +54,7 @@ const Adminsidebar = () => {
         aria-controls="default-sidebar"
         type="button"
         onClick={() => setOpenSidebar(!sidebar)}
+        style={{ position: "relative", zIndex: 10 }}
         className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
@@ -187,15 +181,6 @@ const Adminsidebar = () => {
       </aside>
 
       <div className="sm:ml-64">
-        {/* <div
-          className="p-4 min-h-[100vh] dark:border-gray-700"
-          style={{
-            backgroundImage: `url(${bg3})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        > */}
-
         <div className="z-[-1]">
           {init && (
             <Particles
@@ -288,7 +273,6 @@ const Adminsidebar = () => {
         >
           <AdminDashboard />
         </div>
-        {/* </div> */}
       </div>
     </>
   );

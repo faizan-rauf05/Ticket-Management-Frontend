@@ -15,7 +15,7 @@ const AvailableTicketsCard = () => {
             Noteworthy technology acquisitions 2021
           </h5>
         </a>
-        <p className="text-white" >Price : 1200 Rs</p>
+        <p className="text-white">Price : 1200 Rs</p>
         <p className="text-white">20 seats left</p>
         <a
           href="#"
@@ -23,7 +23,6 @@ const AvailableTicketsCard = () => {
         >
           Buy now
         </a>
-        
       </div>
     </>
   );
