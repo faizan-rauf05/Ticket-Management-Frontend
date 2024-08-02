@@ -204,7 +204,7 @@ const Adminsidebar = () => {
               options={{
                 background: {
                   color: {
-                    value: "#09131f",
+                    value: "#0a192b",
                   },
                 },
                 fpsLimit: 120,

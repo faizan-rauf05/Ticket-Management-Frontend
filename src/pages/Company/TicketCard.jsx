@@ -44,7 +44,7 @@ const TicketCard = ({
 
   return (
     <>
-      <div className="md:max-w-[210px] w-full bg-white shadow-inner transition-transform transform hover:-translate-y-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="md:max-w-[210px] w-full  shadow-inner transition-transform transform hover:-translate-y-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
           <img
             className="rounded-t-lg w-full object-cover"

@@ -7,8 +7,14 @@ const AllUsersCard = () => {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const response = await get("/api/admin/users");
-      setAllUsers(response.data.filteredUsers);
+      try {
+        const response = await get("/api/admin/users");
+        if (response.status == 200) {
+          setAllUsers(response.data.filteredUsers);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchAllUsers();
   }, []);
@@ -18,7 +24,7 @@ const AllUsersCard = () => {
     try {
       const response = await del(`/api/admin/user/${id}`);
       if (response.status == 200) {
-        setAllUsers(response.data.remainingUsers);
+        setAllUsers(response.data.filteredUsers);
         toast.success(response.data.message);
       }
     } catch (error) {

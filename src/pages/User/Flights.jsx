@@ -6,7 +6,7 @@ const Flights = () => {
   const [flightsData, setFlightsData] = useState([]);
   const [flightsMeta, setFlightsMeta] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8
+  const itemsPerPage = 16
 
   // Calculate the current items to display based on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
