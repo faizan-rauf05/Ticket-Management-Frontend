@@ -135,7 +135,7 @@ const Companysidebar = () => {
             options={{
               background: {
                 color: {
-                  value: "#0a192b",
+                  value: "#071628",
                 },
               },
               fpsLimit: 60,

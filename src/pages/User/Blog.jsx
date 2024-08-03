@@ -17,7 +17,7 @@ const Blog = () => {
     formData.append("file", file);
     formData.append("title", blogData.title);
     formData.append("city", blogData.city);
-    formData.append("blog", blogData.blog);
+    formData.append("blog", blogData.blog);                      
     const response = await axios.post(
       // "http://localhost:3000/api/user/blog",
       "https://ticketwhiz.netlify.app/api/user/blog",
