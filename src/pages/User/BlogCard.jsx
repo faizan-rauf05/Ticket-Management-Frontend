@@ -8,7 +8,7 @@ const BlogCard = ({ title, city, image, blog, _id }) => {
         <a href="#">
           <img
             className="rounded-t-lg w-full h-[180px] object-cover"
-            src={`${window.location.origin}/images/${image}`}
+            src={`http://localhost:3000/images/${image}`}
             alt=""
           />
         </a>
