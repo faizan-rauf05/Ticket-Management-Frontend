@@ -56,8 +56,7 @@ const AllUsersCard = () => {
       "Content-Type": "application/json",
     };
     const response = await fetch(
-      "http://localhost:3000/api/create-checkout-session",
-      // "https://ticketwhiz.netlify.app/api/create-checkout-session",
+      `${window.location.origin}/api/create-checkout-session`,
       {
         method: "POST",
         headers: headers,
