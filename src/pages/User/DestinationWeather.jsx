@@ -43,7 +43,7 @@ const DestinationWeather = ({ location }) => {
       )}
       {cityWeather && (
         <div>
-          <p>{cityWeather.main.temp} °C</p>
+          <p>{cityWeather.main.temp} </p>
         </div>
       )}
       {/* </div> */}

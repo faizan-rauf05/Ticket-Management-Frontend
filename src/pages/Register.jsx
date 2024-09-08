@@ -17,12 +17,14 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password } = data;
     try {
+      console.log("server request");
       const request = await post("/api/auth/register", {
         name,
         email,
         password,
       });
       const response = request.data;
+      console.log(request)
       if (request.status == 200) {
         toast.success(response.message);
         navigate("/login");
